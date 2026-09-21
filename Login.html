@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign In - Arunachal Solar HRMS</title>
+<meta name="description" content="Arunachal Solar HRMS - Sign In">
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<!-- Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+<style>
+/* ══════════════════════════════════════════════════════════════
+   ARUNACHAL SOLAR HRMS — Sign In (shares design tokens with the
+   Manager and Employee app files)
+   ══════════════════════════════════════════════════════════════ */
+:root {
+    --bg-body: #f6f9ff;
+    --bg-card: #ffffff;
+    --text-main: #212529;
+    --text-title: #012970;
+    --text-muted: #6c757d;
+    --border-color: #dee2e6;
+    --shadow-sm: 0 2px 4px rgba(0,0,0,.05);
+    --shadow-lg: 0 20px 50px rgba(1,41,112,.10);
+    --primary: #1d6ae5;
+    --primary-light: #e0f2fe;
+    --success: #28a745;
+    --danger: #dc3545;
+    --warning: #ffc107;
+    --font-primary: 'Inter','Poppins',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+    --font-heading: 'Outfit','Inter',sans-serif;
+    --r-sm: 8px;
+    --r-md: 12px;
+    --r-lg: 16px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+    font-family:var(--font-primary);font-size:14px;color:var(--text-main);
+    background:var(--bg-body);
+    min-height:100vh;display:flex;align-items:center;justify-content:center;
+    padding:24px;
+    background-image:radial-gradient(circle at 15% 15%, rgba(29,106,229,.06) 0%, transparent 40%),
+                      radial-gradient(circle at 85% 85%, rgba(1,41,112,.05) 0%, transparent 40%);
+}
+
+.login-wrap{width:100%;max-width:960px;display:grid;grid-template-columns:1fr 1fr;border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow-lg);background:var(--bg-card);}
+
+/* Left brand panel */
+.login-brand{
+    background:linear-gradient(155deg,#012970 0%,#1d6ae5 100%);
+    color:#fff;padding:48px 40px;display:flex;flex-direction:column;justify-content:space-between;
+}
+.login-brand .brand-top{display:flex;align-items:center;gap:10px;}
+.login-brand .brand-top img{width:34px;height:34px;filter:brightness(0) invert(1);opacity:.95;}
+.login-brand .brand-top span{font-family:var(--font-heading);font-weight:700;font-size:1.2rem;letter-spacing:-.2px;}
+.login-brand h1{font-family:var(--font-heading);font-weight:700;font-size:1.7rem;line-height:1.3;margin-top:36px;}
+.login-brand p{margin-top:14px;color:rgba(255,255,255,.82);font-size:.92rem;line-height:1.6;max-width:340px;}
+.login-brand .brand-foot{font-size:.78rem;color:rgba(255,255,255,.6);}
+
+/* Right form panel */
+.login-form-panel{padding:48px 44px;display:flex;flex-direction:column;justify-content:center;}
+.login-form-panel h2{font-family:var(--font-heading);font-weight:700;font-size:1.4rem;color:var(--text-title);}
+.login-form-panel .sub{color:var(--text-muted);font-size:.85rem;margin-top:6px;margin-bottom:24px;}
+
+/* Role tabs */
+.role-tabs{display:flex;background:#f1f4f9;border-radius:50px;padding:4px;margin-bottom:24px;}
+.role-tab{flex:1;text-align:center;padding:9px 10px;border-radius:50px;font-size:.83rem;font-weight:600;color:var(--text-muted);cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:6px;}
+.role-tab.active{background:#fff;color:var(--primary);box-shadow:0 2px 6px rgba(0,0,0,.08);}
+.role-tab i{font-size:1rem;}
+
+.form-group{margin-bottom:18px;}
+.form-group label{display:block;font-size:.78rem;font-weight:700;color:var(--text-muted);margin-bottom:6px;letter-spacing:.2px;}
+.input-wrap{position:relative;}
+.input-wrap i{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--text-muted);font-size:.95rem;}
+.input-wrap input{
+    width:100%;padding:11px 14px 11px 40px;border:1px solid var(--border-color);border-radius:var(--r-sm);
+    font-size:.88rem;font-family:inherit;color:var(--text-main);outline:0;transition:all .2s;background:#fff;
+}
+.input-wrap input:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(29,106,229,.12);}
+.input-wrap .toggle-eye{left:auto;right:14px;cursor:pointer;}
+
+.form-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;font-size:.8rem;}
+.remember{display:flex;align-items:center;gap:7px;color:var(--text-muted);}
+.remember input{accent-color:var(--primary);}
+.forgot{color:var(--primary);font-weight:600;text-decoration:none;}
+.forgot:hover{color:#1558c8;}
+
+.btn-signin{
+    width:100%;padding:12px;border:0;border-radius:var(--r-sm);background:var(--primary);color:#fff;
+    font-size:.92rem;font-weight:700;font-family:inherit;cursor:pointer;transition:all .2s;
+    display:flex;align-items:center;justify-content:center;gap:8px;
+}
+.btn-signin:hover{background:#1558c8;transform:translateY(-1px);box-shadow:0 6px 16px rgba(29,106,229,.3);}
+
+.demo-note{
+    margin-top:20px;padding:12px 14px;background:var(--primary-light);border-radius:var(--r-sm);
+    font-size:.76rem;color:#0c4a8a;line-height:1.5;display:flex;gap:8px;
+}
+.demo-note i{margin-top:1px;}
+
+.status-msg{display:none;margin-top:14px;padding:10px 14px;border-radius:var(--r-sm);font-size:.8rem;font-weight:600;align-items:center;gap:8px;}
+.status-msg.show{display:flex;}
+
+@media (max-width:760px){
+    .login-wrap{grid-template-columns:1fr;}
+    .login-brand{padding:32px 28px;}
+    .login-brand h1{font-size:1.35rem;margin-top:24px;}
+    .login-form-panel{padding:32px 28px;}
+}
+</style>
+</head>
+<body>
+
+<div class="login-wrap">
+    <!-- Left brand panel -->
+    <div class="login-brand">
+        <div>
+            <div class="brand-top">
+                <img src="https://img.icons8.com/fluency/48/combo-chart.png" alt="Logo">
+                <span>Arunachal Solar HRMS</span>
+            </div>
+            <h1>Attendance, leave and payroll — in one place.</h1>
+            <p>One sign-in for the whole team. Select your role, and we'll take you straight to the workspace built for it.</p>
+        </div>
+        <div class="brand-foot">© 2026 Arunachal Solar. Internal HR System.</div>
+    </div>
+
+    <!-- Right form panel -->
+    <div class="login-form-panel">
+        <h2>Welcome back</h2>
+        <p class="sub" id="subText">Sign in to continue to your dashboard.</p>
+
+        <div class="role-tabs">
+            <div class="role-tab active" id="tabEmployee" onclick="selectRole('employee')">
+                <i class="bi bi-person-badge"></i> Employee
+            </div>
+            <div class="role-tab" id="tabManager" onclick="selectRole('manager')">
+                <i class="bi bi-person-workspace"></i> Manager / HR
+            </div>
+        </div>
+
+        <form id="loginForm" onsubmit="return handleLogin(event)">
+            <div class="form-group">
+                <label>EMPLOYEE ID OR EMAIL</label>
+                <div class="input-wrap">
+                    <i class="bi bi-envelope"></i>
+                    <input type="text" id="loginId" placeholder="e.g. amit.verma@arunachalsolar.com" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>PASSWORD</label>
+                <div class="input-wrap">
+                    <i class="bi bi-lock"></i>
+                    <input type="password" id="loginPassword" placeholder="••••••••" required>
+                    <i class="bi bi-eye toggle-eye" onclick="togglePassword()" id="eyeIcon"></i>
+                </div>
+            </div>
+            <div class="form-row">
+                <label class="remember"><input type="checkbox"> Remember me</label>
+                <a href="#" class="forgot" onclick="return false">Forgot password?</a>
+            </div>
+            <button type="submit" class="btn-signin" id="signInBtn">
+                <i class="bi bi-box-arrow-in-right"></i> <span id="btnLabel">Sign In as Employee</span>
+            </button>
+        </form>
+
+        <div class="status-msg" id="statusMsg"></div>
+
+        <div class="demo-note">
+            <i class="bi bi-info-circle-fill"></i>
+            <span>Demo prototype — no real authentication is performed. Enter anything and click Sign In; the role tab above decides which workspace opens.</span>
+        </div>
+    </div>
+</div>
+
+<script>
+var selectedRole = 'employee';
+
+function selectRole(role) {
+    selectedRole = role;
+    document.getElementById('tabEmployee').classList.toggle('active', role === 'employee');
+    document.getElementById('tabManager').classList.toggle('active', role === 'manager');
+    document.getElementById('btnLabel').textContent = role === 'employee' ? 'Sign In as Employee' : 'Sign In as Manager / HR';
+    document.getElementById('subText').textContent = role === 'employee'
+        ? 'Sign in to continue to your Employee workspace.'
+        : 'Sign in to continue to the Manager / HR workspace.';
+    document.getElementById('loginId').placeholder = role === 'employee'
+        ? 'e.g. amit.verma@arunachalsolar.com'
+        : 'e.g. admin@arunachalsolar.com';
+}
+
+function togglePassword() {
+    var pw = document.getElementById('loginPassword');
+    var icon = document.getElementById('eyeIcon');
+    if (pw.type === 'password') { pw.type = 'text'; icon.classList.remove('bi-eye'); icon.classList.add('bi-eye-slash'); }
+    else { pw.type = 'password'; icon.classList.remove('bi-eye-slash'); icon.classList.add('bi-eye'); }
+}
+
+function handleLogin(e) {
+    e.preventDefault();
+    var msg = document.getElementById('statusMsg');
+    var btn = document.getElementById('signInBtn');
+    var target = selectedRole === 'manager' ? 'HR_Management_System_V1.html' : 'HR_Management_System_Employee_View.html';
+
+    btn.disabled = true;
+    msg.className = 'status-msg show';
+    msg.style.background = '#eaf1ff';
+    msg.style.color = '#1d6ae5';
+    msg.innerHTML = '<i class="bi bi-arrow-repeat"></i> Signing in, redirecting to your ' + (selectedRole === 'manager' ? 'Manager / HR' : 'Employee') + ' workspace...';
+
+    setTimeout(function () {
+        window.location.href = target;
+    }, 900);
+    return false;
+}
+</script>
+</body>
+</html>

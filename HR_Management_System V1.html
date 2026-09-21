@@ -1,0 +1,2263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Management - Arunachal Solar HRMS</title>
+    <meta name="description" content="Arunachal Solar HRMS Employee Management - Dashboard, Employees, Attendance, Create Form">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- Font Awesome for Ellipsis (used in Laravel) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+/* ══════════════════════════════════════════════════════════════
+   ARUNACHAL SOLAR HRMS — Single-File Standalone Frontend CSS
+   ══════════════════════════════════════════════════════════════ */
+:root {
+    --bg-body: #f6f9ff;
+    --bg-card: #ffffff;
+    --bg-header: #ffffff;
+    --bg-sidebar: #ffffff;
+    --text-main: #212529;
+    --text-title: #012970;
+    --text-muted: #6c757d;
+    --border-color: #dee2e6;
+    --shadow-sm: 0 2px 4px rgba(0,0,0,.05);
+    --shadow-md: 0 4px 12px rgba(0,0,0,.08);
+    --bg-active: #f1f3f5;
+    --primary: #1d6ae5;
+    --primary-light: #e0f2fe;
+    --success: #28a745;
+    --danger: #dc3545;
+    --warning: #ffc107;
+    --info: #0dcaf0;
+    --sidebar-w: 260px;
+    --header-h: 60px;
+    --font-primary: 'Inter','Poppins',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+    --font-heading: 'Outfit','Inter',sans-serif;
+    --r-sm: 8px;
+    --r-md: 12px;
+    --r-lg: 16px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-primary);font-size:14px;background:var(--bg-body);color:var(--text-main);line-height:1.6;overflow-x:hidden}
+a{text-decoration:none;color:var(--primary)}a:hover{color:#1558c8}
+img{max-width:100%}
+.text-danger{color:var(--danger)!important}.text-success{color:var(--success)!important}.text-primary{color:var(--primary)!important}.text-info{color:var(--info)!important}.text-warning{color:var(--warning)!important}.text-secondary{color:var(--text-muted)!important}
+.text-muted-sm{font-size:.8rem;color:var(--text-muted);margin-top:2px}
+
+/* ── HEADER ── */
+.header{position:fixed;top:0;left:0;right:0;height:var(--header-h);background:var(--bg-header);border-bottom:1px solid var(--border-color);box-shadow:var(--shadow-sm);z-index:1000;display:flex;align-items:center}
+.header-inner{display:flex;align-items:center;justify-content:space-between;width:100%;padding:0 16px;gap:16px}
+.header-left{display:flex;align-items:center;gap:12px;min-width:180px}
+.toggle-sidebar-btn{background:0 0;border:0;font-size:1.5rem;color:var(--text-title);cursor:pointer;padding:4px;border-radius:6px;transition:background .2s}.toggle-sidebar-btn:hover{background:var(--bg-active)}
+.logo{display:flex;align-items:center;gap:8px}.logo-img{height:32px;width:32px;object-fit:contain}
+
+/* Module Nav */
+.module-nav{display:flex;align-items:center;gap:2px;flex:1;justify-content:center;overflow-x:auto}
+.module-dropdown{position:relative}
+.module-nav-btn{background:0 0;color:var(--primary);font-size:11px;letter-spacing:.5px;font-family:var(--font-heading);font-weight:600;border:0;border-radius:50px;padding:6px 14px;cursor:pointer;transition:all .25s;white-space:nowrap}
+.module-nav-btn.active{background:var(--primary-light)}
+.module-nav-btn:hover{background:rgba(29,106,229,.05)}
+.dropdown-menu-custom{display:none;position:absolute;top:100%;left:50%;transform:translateX(-50%);background:var(--bg-card);border-radius:var(--r-sm);min-width:200px;box-shadow:0 10px 30px rgba(0,0,0,.1);border:1px solid rgba(0,0,0,.05);padding:8px 0;z-index:1001;animation:fadeDD .2s ease-out}
+.module-dropdown:hover .dropdown-menu-custom{display:block}
+.dropdown-item-custom{display:flex;align-items:center;gap:10px;padding:8px 20px;font-size:.85rem;color:#444;font-weight:500;transition:all .15s}.dropdown-item-custom:hover{background:#f8f9fa;color:var(--primary)}.dropdown-item-custom i{font-size:1rem;color:var(--primary)}
+@keyframes fadeDD{from{opacity:0;transform:translateX(-50%) translateY(-6px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+
+/* Header Right */
+.header-right{display:flex;align-items:center;gap:12px;min-width:320px;justify-content:flex-end}
+.search-bar{display:flex;align-items:center;background:var(--bg-body);border:1px solid var(--border-color);border-radius:var(--r-sm);padding:6px 12px;gap:8px;width:200px;transition:all .25s}
+.search-bar:focus-within{border-color:var(--primary);box-shadow:0 0 0 3px rgba(29,106,229,.1)}
+.search-bar i{color:var(--text-muted);font-size:.85rem}
+.search-bar input{border:0;background:0 0;outline:0;font-size:.82rem;color:var(--text-main);width:100%}
+.header-icon-btn{background:0 0;border:0;font-size:1.2rem;color:var(--text-title);cursor:pointer;padding:6px;border-radius:50%;transition:background .2s;position:relative}.header-icon-btn:hover{background:var(--bg-active)}
+.user-profile{display:flex;align-items:center;gap:8px;cursor:pointer;padding:4px 8px;border-radius:var(--r-sm);transition:background .2s}.user-profile:hover{background:var(--bg-active)}
+.user-avatar i{font-size:1.75rem;color:var(--primary)}
+.user-info{display:flex;flex-direction:column;line-height:1.2}
+.user-name{font-weight:600;font-size:.8rem;color:var(--text-title)}.user-role{font-size:.7rem;color:var(--text-muted)}
+
+/* ── SIDEBAR ── */
+.sidebar{position:fixed;top:var(--header-h);left:0;bottom:0;width:var(--sidebar-w);background:var(--bg-sidebar);border-right:1px solid var(--border-color);box-shadow:var(--shadow-md);z-index:999;overflow-y:auto;transition:all .3s cubic-bezier(.4,0,.2,1);padding-top:8px}
+.sidebar-search{display:flex;align-items:center;gap:8px;padding:12px 16px;border-bottom:1px solid var(--border-color);margin-bottom:4px}
+.sidebar-search i{color:var(--text-muted);font-size:.85rem}
+.sidebar-search input{border:0;outline:0;background:0 0;font-size:.82rem;color:var(--text-main);width:100%}
+.sidebar-nav{list-style:none;padding:8px}
+.nav-item{margin-bottom:2px}
+.nav-link{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:var(--r-sm);font-size:.85rem;font-weight:500;color:var(--text-title);transition:all .25s;cursor:pointer;border:0;background:0 0;width:100%;text-align:left}
+.nav-link i{font-size:1.1rem;transition:color .25s}
+.nav-link:hover,.nav-link.active{background:linear-gradient(135deg,#1d6ae5,#0ea5e9);color:#fff!important;box-shadow:0 4px 14px rgba(29,106,229,.28)}
+.nav-link:hover i,.nav-link.active i{color:#fff!important}
+.nav-link .submenu-arrow{margin-left:auto;font-size:.7rem;transition:transform .3s}
+.has-submenu.open .submenu-arrow{transform:rotate(180deg)}
+.nav-submenu{list-style:none;max-height:0;overflow:hidden;transition:max-height .3s;padding-left:20px}
+.nav-submenu li a{display:block;padding:8px 14px;font-size:.82rem;color:var(--text-muted);border-radius:6px;transition:all .2s}.nav-submenu li a:hover{color:var(--primary);background:var(--bg-active)}
+.sidebar-collapsed .sidebar{transform:translateX(-100%)}.sidebar-collapsed .main-content{margin-left:0}
+
+/* ── MAIN ── */
+.main-content{margin-left:var(--sidebar-w);margin-top:var(--header-h);padding:24px;min-height:calc(100vh - var(--header-h));transition:margin-left .3s cubic-bezier(.4,0,.2,1)}
+
+/* Page Title */
+.page-title{margin-bottom:20px}
+.page-title h1{font-family:var(--font-heading);font-size:1.5rem;font-weight:700;color:var(--text-title);margin-bottom:4px}
+.breadcrumb-nav{font-size:.78rem}
+.breadcrumb-list{display:flex;align-items:center;list-style:none;gap:4px;color:var(--text-muted)}
+.breadcrumb-list li::after{content:'/';margin-left:6px;color:var(--text-muted)}.breadcrumb-list li:last-child::after{content:''}
+.breadcrumb-list li a{color:var(--primary);font-weight:500}.breadcrumb-list li.active{color:var(--text-muted);font-weight:600}
+
+/* Cards */
+.card{background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--r-lg);box-shadow:var(--shadow-sm);transition:all .3s cubic-bezier(.4,0,.2,1);overflow:hidden}
+
+/* ── Stats Cards ── */
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:16px}
+.stats-grid-2col{grid-template-columns:repeat(2,1fr)}.stats-grid-3col{grid-template-columns:repeat(3,1fr)}
+.stat-card{background:var(--bg-card);border-radius:var(--r-lg);box-shadow:var(--shadow-sm);border:1px solid var(--border-color);padding:20px;display:flex;align-items:center;gap:16px;transition:all .3s cubic-bezier(.4,0,.2,1);cursor:pointer}
+.stat-card:hover{transform:translateY(-4px);box-shadow:0 12px 30px rgba(0,0,0,.08)}
+.stat-icon{width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.stat-icon i{font-size:1.5rem;transition:transform .3s}.stat-card:hover .stat-icon i{transform:scale(1.15)}
+.stat-info h6{font-size:.78rem;font-weight:600;color:var(--text-muted);margin-bottom:4px}
+.stat-info h3{font-size:1.6rem;font-weight:700;color:var(--text-title);margin:0;line-height:1}
+
+/* Summary Cards */
+.summary-card{border-radius:var(--r-lg)!important;cursor:pointer;transition:transform .2s,box-shadow .2s}.summary-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.1)}
+.card-body-flex{display:flex;align-items:center;gap:16px;padding:20px 24px}
+.summary-icon{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.summary-icon i{font-size:1.5rem}
+.summary-icon--blue{background:rgba(29,106,229,.1)}.summary-icon--blue i{color:var(--primary)}
+.summary-icon--green{background:rgba(40,167,69,.1)}.summary-icon--green i{color:var(--success)}
+.summary-icon--red{background:rgba(220,53,69,.1)}.summary-icon--red i{color:var(--danger)}
+.summary-label{font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:var(--text-muted)}
+.summary-value{font-size:1.8rem;font-weight:700;color:var(--text-title);line-height:1;margin-top:4px}
+.summary-sub{font-size:.78rem;font-weight:500;margin-top:4px}
+
+/* ── Content Row ── */
+.content-row{display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-bottom:16px}
+.content-card{background:var(--bg-card);border-radius:var(--r-lg);box-shadow:var(--shadow-sm);border:1px solid var(--border-color);overflow:hidden}
+.content-card-header{padding:20px 24px 12px}
+.content-card-header h2{font-family:var(--font-heading);font-size:1.1rem;font-weight:700;color:var(--text-title);display:flex;align-items:center}
+
+/* Table */
+.table-responsive{overflow-x:auto}
+.data-table{width:100%;border-collapse:collapse;font-size:.82rem}
+.data-table thead th{background:var(--bg-active);color:var(--text-title);font-weight:600;font-size:.72rem;text-transform:uppercase;letter-spacing:.5px;padding:12px 16px;border-bottom:2px solid var(--border-color);white-space:nowrap}
+.data-table tbody td{padding:12px 16px;border-bottom:1px solid var(--border-color);color:var(--text-main);vertical-align:middle}
+.data-table tbody tr:hover{background:var(--bg-active)}
+.empty-state{text-align:center;padding:48px 20px!important}
+.empty-icon{font-size:2.5rem;color:var(--border-color);margin-bottom:12px}
+.empty-title{font-weight:600;color:var(--text-muted);margin-bottom:4px}.empty-desc{font-size:.78rem;color:var(--text-muted)}
+
+/* Holidays */
+.holidays-list{padding:8px 16px 16px}
+.holiday-item{display:flex;align-items:center;gap:14px;padding:14px 12px;border-radius:var(--r-sm);transition:all .2s;cursor:pointer}
+.holiday-item:hover{background:var(--bg-active);transform:translateX(4px)}
+.holiday-date{background:linear-gradient(135deg,var(--danger),#e83e5a);color:#fff;border-radius:var(--r-sm);padding:8px 12px;text-align:center;min-width:52px;flex-shrink:0}
+.holiday-month{display:block;font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;opacity:.85}
+.holiday-day{display:block;font-size:1.3rem;font-weight:800;line-height:1;margin-top:2px}
+.holiday-info{flex:1}.holiday-info strong{display:block;font-size:.88rem;color:var(--text-title);font-weight:600}.holiday-info span{font-size:.75rem;color:var(--text-muted)}
+.holiday-badge{background:linear-gradient(135deg,var(--primary),#0ea5e9);color:#fff;font-size:.68rem;font-weight:700;padding:4px 10px;border-radius:20px;white-space:nowrap}
+
+/* Badges */
+.badge{display:inline-block;padding:4px 8px;border-radius:20px;font-size:.72rem;font-weight:600;white-space:nowrap}
+.bg-success-subtle{background-color:#d1e7dd;color:#0f5132}.bg-danger-subtle{background-color:#f8d7da;color:#842029}
+.bg-primary-subtle{background-color:#cfe2ff;color:#084298}.bg-info-subtle{background-color:#cff4fc;color:#055160}
+.bg-warning-subtle{background-color:#fff3cd;color:#664d03}.bg-secondary-subtle{background-color:#e2e3e5;color:#41464b}
+.border-success-subtle{border:1px solid #badbcc}.border-danger-subtle{border:1px solid #f5c2c7}.border-primary-subtle{border:1px solid #b6d4fe}
+
+/* ── EMPLOYEES PAGE ── */
+.page-header-card{margin-bottom:16px}
+.page-header-card .card-body-flex{display:flex;align-items:center;justify-content:space-between;width:100%;}
+.page-heading{font-family:var(--font-heading);font-size:1.4rem;font-weight:700;color:var(--text-title);margin-bottom:2px}
+.header-actions{display:flex;gap:8px;align-items:center}
+.btn-back{display:inline-flex;align-items:center;gap:6px;padding:6px 18px;border:1px solid var(--border-color);border-radius:50px;font-size:.82rem;font-weight:500;color:var(--text-muted);background:0 0;transition:all .2s;cursor:pointer}.btn-back:hover{border-color:var(--primary);color:var(--primary);background:var(--primary-light)}
+
+.toolbar-card{margin-bottom:16px}
+.toolbar-top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;padding:16px 20px;border-bottom:1px solid var(--border-color)}
+.toolbar-left{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.toolbar-label{font-size:.78rem;font-weight:600;color:var(--text-muted)}
+.form-select-sm-toolbar{padding:5px 30px 5px 10px;border:1px solid var(--border-color);border-radius:var(--r-sm);font-size:.82rem;background:var(--bg-body);color:var(--text-main);outline:0;cursor:pointer;appearance:auto}
+.btn-outline-success-sm,.btn-outline-primary-sm{display:inline-flex;align-items:center;gap:6px;padding:5px 14px;border-radius:var(--r-sm);font-size:.82rem;font-weight:500;cursor:pointer;transition:all .2s;background:0 0}
+.btn-outline-success-sm{border:1px solid var(--success);color:var(--success)}.btn-outline-success-sm:hover{background:var(--success);color:#fff}
+.btn-outline-primary-sm{border:1px solid var(--primary);color:var(--primary)}.btn-outline-primary-sm:hover{background:var(--primary);color:#fff}
+.view-toggle{display:flex;border:1px solid var(--border-color);border-radius:var(--r-sm);overflow:hidden}
+.view-btn{display:inline-flex;align-items:center;gap:6px;padding:5px 14px;border:0;background:0 0;font-size:.82rem;font-weight:500;color:var(--text-muted);cursor:pointer;transition:all .2s}
+.view-btn.active{background:var(--primary);color:#fff}.view-btn:not(.active):hover{background:var(--bg-active)}
+.toolbar-right{display:flex;align-items:center}
+.search-input-group{display:flex;width:280px;border:1px solid var(--border-color);border-radius:var(--r-sm);overflow:hidden}
+.search-input-group input{flex:1;border:0;padding:6px 12px;font-size:.82rem;outline:0;background:0 0;color:var(--text-main)}
+.search-btn{padding:6px 14px;background:var(--primary);border:0;color:#fff;cursor:pointer;transition:background .2s}.search-btn:hover{background:#1558c8}
+.table-section{padding:20px}
+.table-header-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.table-title{font-family:var(--font-heading);font-size:1.1rem;font-weight:700;color:var(--text-title)}
+.btn-add-employee{display:inline-flex;align-items:center;gap:6px;padding:8px 20px;background:var(--primary);color:#fff;border-radius:var(--r-sm);font-size:.85rem;font-weight:600;transition:all .2s;box-shadow:0 2px 8px rgba(29,106,229,.3);cursor:pointer;border:0}.btn-add-employee:hover{background:#1558c8;color:#fff;transform:translateY(-1px);box-shadow:0 4px 12px rgba(29,106,229,.4)}
+
+/* Dropdown Actions in Table */
+.dropdown-menu{display:none;position:absolute;right:0;background:#fff;box-shadow:0 4px 12px rgba(0,0,0,.1);border:1px solid #ddd;border-radius:6px;padding:8px 0;z-index:100;min-width:120px}
+.dropdown-menu.show{display:block}
+.dropdown-item{display:flex;align-items:center;gap:8px;padding:6px 16px;font-size:.85rem;color:#333;text-decoration:none}.dropdown-item:hover{background:#f8f9fa;color:var(--primary)}
+.action-btn-cell{position:relative;}
+.btn-light-border{background:#fff;border:1px solid #ddd;border-radius:4px;padding:4px 8px;cursor:pointer;color:#555}.btn-light-border:hover{background:#f1f3f5}
+
+/* ── CREATE FORM ── */
+.form-tabs-wrapper{background:var(--bg-card);border-bottom:1px solid var(--border-color);overflow-x:auto;overflow-y:hidden}
+.form-tabs{display:flex;list-style:none;padding:0 12px;white-space:nowrap;min-width:max-content}
+.form-tab{padding:14px 18px;border:0;background:0 0;font-size:.82rem;font-weight:600;color:var(--text-muted);cursor:pointer;position:relative;transition:all .25s;white-space:nowrap}
+.form-tab::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:0 0;border-radius:3px 3px 0 0;transition:background .25s}
+.form-tab.active{color:var(--primary)}.form-tab.active::after{background:var(--primary)}
+.form-tab:hover:not(.tab-locked):not(.active){color:var(--text-title)}
+.form-tab.tab-locked{color:#b0b0b0;cursor:not-allowed;opacity:.65}.form-tab.tab-locked i{font-size:.7rem;margin-left:4px}
+.tab-required{display:inline-block;background:var(--danger);color:#fff;font-size:.6rem;font-weight:700;padding:1px 6px;border-radius:10px;margin-left:4px;vertical-align:middle}
+
+.form-body{padding:28px 32px 32px}
+.section-title-row{margin-bottom:20px}
+.section-title{font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--primary)}
+.form-container-card{background:var(--bg-card);border:1px solid var(--border-color);border-radius:var(--r-lg);box-shadow:var(--shadow-sm);padding:28px 32px}
+
+.settings-section-row{padding:28px 0;border-bottom:1px solid #eaecf4;display:grid;grid-template-columns:260px 1fr;gap:32px;align-items:start}
+.settings-section-row:first-child{padding-top:8px}
+.settings-section-row:last-child,.settings-section-row.last{border-bottom:0;padding-bottom:0}
+.section-sidebar{padding-right:16px}
+.sidebar-title{font-size:.9rem;font-weight:700;color:#2e3752;display:flex;align-items:center;gap:8px}.sidebar-title i{font-size:1.2rem}
+.sidebar-desc{font-size:.775rem;color:var(--text-muted);line-height:1.4;margin-top:6px}
+.section-content{min-width:0}
+
+.form-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.form-grid-2col{grid-template-columns:repeat(2,1fr)}.form-grid-1col{grid-template-columns:1fr}
+.form-group{display:flex;flex-direction:column}
+
+.pm-label{display:inline-block;font-size:.725rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#4e73df;margin-bottom:6px}
+
+.form-control,.form-select{width:100%;padding:8px 12px;border:1px solid #d1d3e2;border-radius:var(--r-sm);font-size:.85rem;color:var(--text-main);background:var(--bg-body);outline:0;transition:all .25s}
+.form-control:focus,.form-select:focus{border-color:#bac8f3;box-shadow:0 0 0 3px rgba(78,115,223,.12);background:var(--bg-card)}
+.form-control[readonly],.form-control:disabled,.form-select:disabled{background:#eaecf4!important;border-color:#d1d3e2;cursor:not-allowed}
+.form-control::placeholder{color:#b0b7c3}
+textarea.form-control{resize:vertical;min-height:80px}
+.form-hint{font-size:.72rem;color:var(--text-muted);margin-top:4px}
+
+input[type="file"].form-control{padding:6px 12px}
+input[type="file"].form-control::file-selector-button{background:linear-gradient(135deg,#1d6ae5,#1558c8);border:0;border-radius:6px;color:#fff;padding:6px 14px;font-size:.8rem;font-weight:600;margin-right:12px;cursor:pointer;transition:all .2s}
+input[type="file"].form-control::file-selector-button:hover{background:linear-gradient(135deg,#1558c8,#1048a8);transform:translateY(-1px)}
+
+.phone-input-group{display:flex;align-items:stretch;border:1px solid #d1d3e2;border-radius:var(--r-sm);overflow:hidden;transition:all .25s}
+.phone-input-group:focus-within{border-color:#bac8f3;box-shadow:0 0 0 3px rgba(78,115,223,.12)}
+.phone-prefix{display:flex;align-items:center;gap:6px;padding:0 10px;background:#eaecf4;border-right:1px solid #d1d3e2;font-size:.82rem;font-weight:500;color:var(--text-main);white-space:nowrap;cursor:pointer}
+.flag-icon{width:20px;height:14px;object-fit:cover;border-radius:2px}
+.phone-input{border:0!important;border-radius:0!important;flex:1}.phone-input:focus{box-shadow:none!important}
+
+.toggle-card{background:#f8fafc;border:1px solid #d1d3e2;border-radius:var(--r-sm);padding:16px;display:flex;flex-direction:column;gap:8px;height:100%}
+.toggle-header{display:flex;align-items:center;gap:12px}
+.toggle-label{font-weight:700;font-size:.9rem;color:var(--text-title);cursor:pointer}
+.toggle-desc{font-size:.78rem;color:var(--text-muted);margin:0}.toggle-desc i{margin-right:4px}
+
+.switch{position:relative;display:inline-block;width:44px;height:22px;flex-shrink:0}
+.switch input{opacity:0;width:0;height:0}
+.slider{position:absolute;cursor:pointer;top:0;left:0;right:0;bottom:0;background:#ccc;transition:.3s;border-radius:22px}
+.slider::before{content:"";position:absolute;height:16px;width:16px;left:3px;bottom:3px;background:#fff;transition:.3s;border-radius:50%;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.switch input:checked+.slider{background:var(--primary)}
+.switch input:checked+.slider::before{transform:translateX(22px)}
+
+.input-with-icon{position:relative;display:flex;align-items:center}
+.input-with-icon .form-control{padding-right:42px}
+.input-icon-btn{position:absolute;right:0;top:0;bottom:0;padding:0 12px;background:0 0;border:0;border-left:1px solid #d1d3e2;color:var(--text-muted);cursor:pointer;transition:all .2s;border-radius:0 var(--r-sm) var(--r-sm) 0}.input-icon-btn:hover{color:var(--primary);background:var(--bg-active)}
+
+
+/* ── Enhanced Card & Table Action Buttons ── */
+.btn-card-cancel {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 9px 24px;
+    background: #f1f5f9;
+    color: #475569;
+    border: 1px solid #cbd5e1;
+    border-radius: 50px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+.btn-card-cancel:hover {
+    background: #e2e8f0;
+    color: #1e293b;
+    border-color: #94a3b8;
+    transform: translateY(-1px);
+}
+.btn-card-save {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 9px 26px;
+    background: linear-gradient(135deg, #1d6ae5 0%, #2563eb 100%);
+    color: #ffffff !important;
+    border: none;
+    border-radius: 50px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 14px rgba(29, 106, 229, 0.32);
+}
+.btn-card-save:hover {
+    background: linear-gradient(135deg, #1558c8 0%, #1d4ed8 100%);
+    box-shadow: 0 6px 18px rgba(29, 106, 229, 0.45);
+    transform: translateY(-1.5px);
+}
+.btn-card-save-success {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 9px 26px;
+    background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
+    color: #ffffff !important;
+    border: none;
+    border-radius: 50px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 14px rgba(22, 163, 74, 0.32);
+}
+.btn-card-save-success:hover {
+    background: linear-gradient(135deg, #15803d 0%, #166534 100%);
+    box-shadow: 0 6px 18px rgba(22, 163, 74, 0.45);
+    transform: translateY(-1.5px);
+}
+
+.btn-table-action-add {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: #eef2ff;
+    color: #1d6ae5;
+    border: 1px solid #bfdbfe;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 13px;
+    margin-right: 4px;
+}
+.btn-table-action-add:hover {
+    background: #1d6ae5;
+    color: #ffffff;
+    border-color: #1d6ae5;
+    transform: translateY(-1px);
+}
+.btn-table-action-delete {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: #fef2f2;
+    color: #ef4444;
+    border: 1px solid #fecaca;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 13px;
+}
+.btn-table-action-delete:hover {
+    background: #ef4444;
+    color: #ffffff;
+    border-color: #ef4444;
+    transform: translateY(-1px);
+}
+
+.form-actions{display:flex;justify-content:flex-end;margin-top:24px}
+.btn-primary-rounded{display:inline-flex;align-items:center;gap:8px;padding:10px 28px;background:linear-gradient(135deg,var(--primary),#0ea5e9);color:#fff;border:0;border-radius:50px;font-size:.88rem;font-weight:600;cursor:pointer;transition:all .25s;box-shadow:0 4px 14px rgba(29,106,229,.3)}
+.btn-primary-rounded:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(29,106,229,.4);background:linear-gradient(135deg,#1558c8,#0891d0)}
+.btn-outline-primary-rounded{display:inline-flex;align-items:center;gap:8px;padding:10px 28px;background:#fff;color:var(--primary);border:1px solid var(--primary);border-radius:50px;font-size:.88rem;font-weight:600;cursor:pointer;transition:all .25s;margin-right:12px}
+.btn-outline-primary-rounded:hover{background:var(--primary-light)}
+
+/* Page sections toggle */
+.page-section{display:none}.page-section.active-page{display:block}
+.tab-content{display:none}.tab-content.active-tab{display:block}
+
+/* ── ATTENDANCE PAGE ── */
+.bg-light-warning{background-color:#fff9e6!important;border-left:4px solid #ffc107!important}
+.bg-warning-soft{background-color:rgba(255,193,7,.15)}
+.bg-danger-soft{background-color:rgba(220,53,69,.1);font-size:.85rem;letter-spacing:.5px}
+.lh-base{line-height:1.5!important}
+.filter-card{background:#fff;border-radius:12px;padding:15px;border:1px solid #e5e7eb}
+.employee_rw{font-size:10px}
+.btn-success-rounded{display:inline-flex;align-items:center;gap:8px;padding:10px 24px;background:var(--success);color:#fff;border:0;border-radius:50px;font-size:.88rem;font-weight:600;cursor:pointer;transition:all .25s}
+.btn-success-rounded:hover{background:#218838;transform:translateY(-1px)}
+.btn-warning-rounded{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;background:var(--warning);color:#000;border:0;border-radius:50px;font-size:.88rem;font-weight:600;cursor:pointer;transition:all .25s}
+
+/* ── Responsive ── */
+@media(max-width:1200px){.module-nav{display:none}}
+@media(max-width:992px){
+    .sidebar{transform:translateX(-100%)}.main-content{margin-left:0}
+    .stats-grid{grid-template-columns:repeat(2,1fr)}.content-row{grid-template-columns:1fr}
+    .settings-section-row{grid-template-columns:1fr;gap:12px}.form-grid{grid-template-columns:repeat(2,1fr)}
+    .form-body{padding:20px 16px}.form-container-card{padding:20px 16px}
+}
+@media(max-width:768px){
+    .stats-grid,.stats-grid-3col{grid-template-columns:1fr}
+    .toolbar-top{flex-direction:column;align-items:stretch}.search-input-group{width:100%}
+    .form-grid,.form-grid-2col{grid-template-columns:1fr}
+    .header-right{min-width:auto}.user-info{display:none}.search-bar{width:140px}
+}
+@media(max-width:480px){.main-content{padding:12px}.form-body{padding:12px 8px}.form-container-card{padding:12px}}
+
+/* Scrollbar */
+::-webkit-scrollbar{width:6px;height:6px}::-webkit-scrollbar-track{background:0 0}::-webkit-scrollbar-thumb{background:var(--border-color);border-radius:3px}::-webkit-scrollbar-thumb:hover{background:#b0b7c3}
+
+/* Sidebar animations */
+@keyframes sidebarFI{from{opacity:0;transform:translateX(-8px)}to{opacity:1;transform:translateX(0)}}
+.sidebar-nav .nav-item{animation:sidebarFI .3s cubic-bezier(.4,0,.2,1)}
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════════════════
+     HEADER
+════════════════════════════════════════════════════════════ -->
+<header class="header" id="header">
+    <div class="header-inner">
+        <div class="header-left">
+            <button class="toggle-sidebar-btn" id="toggleSidebar"><i class="bi bi-list"></i></button>
+            <a href="#" class="logo" onclick="showPage('dashboard');return false">
+                <img src="https://img.icons8.com/fluency/48/combo-chart.png" alt="Logo" class="logo-img">
+                <span class="logo-text" style="font-size:1.15rem;font-weight:700;color:#012970;font-family:var(--font-heading);letter-spacing:-0.2px;">HR System</span>
+            </a>
+        </div>
+        <div class="header-right">
+            <div class="search-bar"><i class="bi bi-search"></i><input type="text" placeholder="Search system"></div>
+            <button class="header-icon-btn"><i class="bi bi-bell"></i></button>
+            <div class="user-profile">
+                <div class="user-avatar"><i class="bi bi-person-circle"></i></div>
+                <div class="user-info"><span class="user-name">Built In Admin</span><span class="user-role">Global Admin</span></div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- ════════════════════════════════════════════════════════════
+     SIDEBAR
+════════════════════════════════════════════════════════════ -->
+<aside class="sidebar" id="sidebar">
+    <div class="sidebar-search"><i class="bi bi-search"></i><input type="text" placeholder="Search module..."></div>
+    <ul class="sidebar-nav">
+        <li class="nav-item"><a href="#" class="nav-link active" id="sidebarDashboard" onclick="showPage('dashboard');return false"><i class="bi bi-grid-1x2-fill"></i><span>Dashboard</span></a></li>
+        <li class="nav-item"><a href="#" class="nav-link" id="sidebarEmployees" onclick="showPage('employees');return false"><i class="bi bi-people-fill"></i><span>Employees</span></a></li>
+        <li class="nav-item has-submenu">
+            <a href="#" class="nav-link collapsed" id="sidebarAttendance" onclick="toggleSubmenu(this,event)"><i class="bi bi-clock-history"></i><span>Attendance</span><i class="bi bi-chevron-down submenu-arrow"></i></a>
+            <ul class="nav-submenu">
+                <li><a href="#" onclick="showPage('attendance');return false">Attendance Records</a></li>
+            </ul>
+        </li>
+        <li class="nav-item has-submenu">
+            <a href="#" class="nav-link collapsed" id="sidebarLeave" onclick="toggleSubmenu(this,event)"><i class="bi bi-calendar2-week"></i><span>Leave</span><i class="bi bi-chevron-down submenu-arrow"></i></a>
+            <ul class="nav-submenu"><li><a href="#" onclick="showPage('leave');return false">Leave Application</a></li></ul>
+        </li>
+        <li class="nav-item"><a href="#" class="nav-link" id="sidebarPayroll" onclick="showPage('payroll');return false"><i class="bi bi-cash-stack"></i><span>Payroll</span></a></li>
+        <li class="nav-item"><a href="#" class="nav-link" id="sidebarPerformance" onclick="showPage('performance');return false"><i class="bi bi-graph-up-arrow"></i><span>Performance</span></a></li>
+    </ul>
+</aside>
+
+<!-- ════════════════════════════════════════════════════════════
+     MAIN CONTENT — 4 Pages (toggled via JS)
+════════════════════════════════════════════════════════════ -->
+<main class="main-content" id="main">
+
+<!-- ╔══════════════════════════════════════════════════════════╗
+     ║  PAGE 1: DASHBOARD                                      ║
+     ╚══════════════════════════════════════════════════════════╝ -->
+<div class="page-section active-page" id="page-dashboard">
+    <div class="page-title">
+        <h1>Employee Management Dashboard</h1>
+        <nav class="breadcrumb-nav"><ol class="breadcrumb-list"><li><a href="#">Home</a></li><li>Employee Management</li><li class="active">Dashboard</li></ol></nav>
+    </div>
+
+    <!-- Stats Row 1 -->
+    <div class="stats-grid">
+        <div class="stat-card" style="border-left:4px solid #1d6ae5"><div class="stat-icon" style="background:rgba(29,106,229,.1)"><i class="bi bi-people" style="color:#1d6ae5"></i></div><div class="stat-info"><h6>All Employees</h6><h3>8</h3></div></div>
+        <div class="stat-card" style="border-left:4px solid #1d6ae5"><div class="stat-icon" style="background:rgba(29,106,229,.1)"><i class="bi bi-person-check-fill" style="color:#28a745"></i></div><div class="stat-info"><h6>Active Employees</h6><h3>7</h3></div></div>
+        <div class="stat-card" style="border-left:4px solid #dc3545"><div class="stat-icon" style="background:rgba(220,53,69,.1)"><i class="bi bi-person-x-fill" style="color:#dc3545"></i></div><div class="stat-info"><h6>Inactive Employees</h6><h3>1</h3></div></div>
+        <div class="stat-card" style="border-left:4px solid #28a745"><div class="stat-icon" style="background:rgba(40,167,69,.1)"><i class="bi bi-person-check" style="color:#28a745"></i></div><div class="stat-info"><h6>Present Today</h6><h3>7</h3></div></div>
+    </div>
+    <!-- Stats Row 2 -->
+    <div class="stats-grid">
+        <div class="stat-card" style="border-left:4px solid #ffc107"><div class="stat-icon" style="background:rgba(255,193,7,.15)"><i class="bi bi-person-lines-fill" style="color:#ffc107"></i></div><div class="stat-info"><h6>Half Day Today</h6><h3>0</h3></div></div>
+        <div class="stat-card" style="border-left:4px solid #dc3545"><div class="stat-icon" style="background:rgba(220,53,69,.1)"><i class="bi bi-person-x" style="color:#dc3545"></i></div><div class="stat-info"><h6>Absent Today</h6><h3>0</h3></div></div>
+        <div class="stat-card" style="border-left:4px solid #20c997"><div class="stat-icon" style="background:rgba(32,201,151,.1)"><i class="bi bi-calendar-check-fill" style="color:#20c997"></i></div><div class="stat-info"><h6>Approved Leaves (Month)</h6><h3>0</h3></div></div>
+        <div class="stat-card" style="border-left:4px solid #6f42c1"><div class="stat-icon" style="background:rgba(111,66,193,.1)"><i class="bi bi-calendar2-check" style="color:#6f42c1"></i></div><div class="stat-info"><h6>On Leave Today</h6><h3>0</h3></div></div>
+    </div>
+
+    <div class="content-row">
+        <div class="content-card">
+            <div class="content-card-header"><h2><i class="bi bi-check-circle" style="margin-right:8px"></i> Need Approvals</h2><p class="text-muted-sm">Leaves awaiting review and approval decision.</p></div>
+            <div class="table-responsive">
+                <table class="data-table"><thead><tr><th>EMPLOYEE</th><th>DATE RANGE</th><th>DAYS</th><th>REASON</th><th>ACTION</th></tr></thead>
+                <tbody><tr><td colspan="5" class="empty-state"><div class="empty-icon"><i class="bi bi-inbox"></i></div><p class="empty-title">No records found</p><p class="empty-desc">All leave requests have been processed.</p></td></tr></tbody></table>
+            </div>
+        </div>
+        <div class="content-card">
+            <div class="content-card-header"><h2><i class="bi bi-calendar-event" style="margin-right:8px"></i> Upcoming Holidays</h2><p class="text-muted-sm">Nearest public and company holidays.</p></div>
+            <div class="holidays-list">
+                <div class="holiday-item"><div class="holiday-date"><span class="holiday-month">OCT</span><span class="holiday-day">02</span></div><div class="holiday-info"><strong>Gandhi Jayanti</strong><span>Friday, 02 Oct 2026</span></div><span class="holiday-badge">In 25 d</span></div>
+                <div class="holiday-item"><div class="holiday-date"><span class="holiday-month">OCT</span><span class="holiday-day">20</span></div><div class="holiday-info"><strong>Dussehra</strong><span>Tuesday, 20 Oct 2026</span></div><span class="holiday-badge">In 43 d</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-row" style="grid-template-columns:1fr;">
+        <div class="content-card">
+            <div class="content-card-header"><h2><i class="bi bi-file-earmark-bar-graph" style="margin-right:8px"></i> Generate Report</h2><p class="text-muted-sm">Create an attendance, leave, payroll or headcount report for a date range, on demand.</p></div>
+            <div style="padding:4px 24px 22px;display:flex;gap:14px;flex-wrap:wrap;align-items:flex-end;">
+                <div>
+                    <label style="display:block;font-size:11px;font-weight:700;color:#6b7280;margin-bottom:6px;">REPORT TYPE</label>
+                    <select id="reportType" class="form-select-sm-toolbar">
+                        <option>Attendance</option>
+                        <option>Leave</option>
+                        <option>Payroll</option>
+                        <option>Headcount</option>
+                    </select>
+                </div>
+                <div>
+                    <label style="display:block;font-size:11px;font-weight:700;color:#6b7280;margin-bottom:6px;">FROM</label>
+                    <input type="date" id="reportFrom" class="form-select-sm-toolbar">
+                </div>
+                <div>
+                    <label style="display:block;font-size:11px;font-weight:700;color:#6b7280;margin-bottom:6px;">TO</label>
+                    <input type="date" id="reportTo" class="form-select-sm-toolbar">
+                </div>
+                <button class="btn-add-employee" onclick="generateReport()"><i class="bi bi-download"></i> Generate Report</button>
+            </div>
+            <div id="reportResult" style="display:none;margin:0 24px 20px;padding:10px 14px;background:#eaf1ff;color:#1d6ae5;border-radius:6px;font-size:13px;font-weight:600;"></div>
+        </div>
+    </div>
+</div>
+
+<!-- ╔══════════════════════════════════════════════════════════╗
+     ║  PAGE 2: EMPLOYEES LIST                                 ║
+     ╚══════════════════════════════════════════════════════════╝ -->
+<div class="page-section" id="page-employees">
+    <div class="card page-header-card">
+        <div class="card-body-flex"><div><h1 class="page-heading">Employees Management</h1><nav class="breadcrumb-nav"><ol class="breadcrumb-list"><li><a href="#" onclick="showPage('dashboard');return false">Dashboard</a></li><li class="active">Employees</li></ol></nav></div></div>
+    </div>
+
+    <div class="stats-grid stats-grid-3col">
+        <div class="card summary-card summary-card--blue"><div class="card-body-flex"><div class="summary-icon summary-icon--blue"><i class="bi bi-layers-fill"></i></div><div><div class="summary-label">TOTAL EMPLOYEES</div><div class="summary-value">8</div><div class="summary-sub">All Employees</div></div></div></div>
+        <div class="card summary-card summary-card--green"><div class="card-body-flex"><div class="summary-icon summary-icon--green"><i class="bi bi-check-circle-fill"></i></div><div><div class="summary-label">ACTIVE</div><div class="summary-value">7</div><div class="summary-sub text-success"><i class="bi bi-arrow-up-short"></i> Enabled</div></div></div></div>
+        <div class="card summary-card summary-card--red"><div class="card-body-flex"><div class="summary-icon summary-icon--red"><i class="bi bi-x-circle-fill"></i></div><div><div class="summary-label">INACTIVE</div><div class="summary-value">1</div><div class="summary-sub text-danger"><i class="bi bi-dash-circle"></i> Disabled</div></div></div></div>
+    </div>
+
+    <div class="card toolbar-card">
+        <div class="toolbar-top">
+            <div class="toolbar-left">
+                <span class="toolbar-label">SHOW</span>
+                <select class="form-select-sm-toolbar"><option>10 rows</option><option>25 rows</option></select>
+                <button class="btn-outline-success-sm"><i class="bi bi-file-earmark-excel"></i> Excel</button>
+                <button class="btn-outline-primary-sm"><i class="bi bi-funnel"></i> Filters <i class="bi bi-chevron-down"></i></button>
+            </div>
+            <div class="toolbar-right"><div class="search-input-group"><input type="text" placeholder="Search employee..."><button class="search-btn"><i class="bi bi-search"></i></button></div></div>
+        </div>
+        <div class="table-section">
+            <div class="table-header-row">
+                <h2 class="table-title">All Employees</h2>
+                <button class="btn-add-employee" onclick="showPage('create')"><i class="bi bi-plus-lg"></i> Add New Employee</button>
+            </div>
+            <div class="table-responsive">
+                <table class="data-table">
+                    <thead><tr><th>#</th><th>SYSTEM ACCESS</th><th>EMPLOYEE ID</th><th>NAME</th><th>MOBILE</th><th>EMAIL</th><th>ROLE</th><th>DESIGN.</th><th>REPORTING MANAGER</th><th>ACTIONS</th></tr></thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td><span class="badge bg-success-subtle border-success-subtle"><i class="bi bi-check-circle-fill"></i> Yes</span></td>
+                            <td>EMP001</td>
+                            <td><strong>Rahul Sharma</strong></td>
+                            <td>+91 98765 43210</td>
+                            <td>rahul.sharma@gmail.com</td>
+                            <td>Admin</td>
+                            <td>Senior Software Engineer</td>
+                            <td><span style="color:#9ca3af;">—</span></td>
+                            <td class="action-btn-cell">
+                                <button class="btn-light-border" onclick="toggleDropdown(this)"><i class="fa fa-ellipsis-v"></i></button>
+                                <div class="dropdown-menu">
+                                    <a href="#" class="dropdown-item"><i class="bi bi-eye text-primary"></i> View</a>
+                                    <a href="#" class="dropdown-item"><i class="bi bi-pencil text-warning"></i> Edit</a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td><span class="badge bg-success-subtle border-success-subtle"><i class="bi bi-check-circle-fill"></i> Yes</span></td>
+                            <td>EMP002</td>
+                            <td><strong>Priya Patel</strong></td>
+                            <td>+91 98234 56789</td>
+                            <td>priya.patel@gmail.com</td>
+                            <td>Manager</td>
+                            <td>HR Manager</td>
+                            <td>Rahul Sharma</td>
+                            <td class="action-btn-cell">
+                                <button class="btn-light-border" onclick="toggleDropdown(this)"><i class="fa fa-ellipsis-v"></i></button>
+                                <div class="dropdown-menu">
+                                    <a href="#" class="dropdown-item"><i class="bi bi-eye text-primary"></i> View</a>
+                                    <a href="#" class="dropdown-item"><i class="bi bi-pencil text-warning"></i> Edit</a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td><span class="badge bg-success-subtle border-success-subtle"><i class="bi bi-check-circle-fill"></i> Yes</span></td>
+                            <td>EMP003</td>
+                            <td><strong>Amit Verma</strong></td>
+                            <td>+91 97123 45678</td>
+                            <td>amit.verma@gmail.com</td>
+                            <td>Employee</td>
+                            <td>Frontend Developer</td>
+                            <td>Vikram Singh</td>
+                            <td class="action-btn-cell">
+                                <button class="btn-light-border" onclick="toggleDropdown(this)"><i class="fa fa-ellipsis-v"></i></button>
+                                <div class="dropdown-menu">
+                                    <a href="#" class="dropdown-item"><i class="bi bi-eye text-primary"></i> View</a>
+                                    <a href="#" class="dropdown-item"><i class="bi bi-pencil text-warning"></i> Edit</a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td><span class="badge bg-success-subtle border-success-subtle"><i class="bi bi-check-circle-fill"></i> Yes</span></td>
+                            <td>EMP004</td>
+                            <td><strong>Ananya Iyer</strong></td>
+                            <td>+91 98987 65432</td>
+                            <td>ananya.iyer@gmail.com</td>
+                            <td>Employee</td>
+                            <td>UI/UX Designer</td>
+                            <td>Vikram Singh</td>
+                            <td class="action-btn-cell">
+                                <button class="btn-light-border" onclick="toggleDropdown(this)"><i class="fa fa-ellipsis-v"></i></button>
+                                <div class="dropdown-menu">
+                                    <a href="#" class="dropdown-item"><i class="bi bi-eye text-primary"></i> View</a>
+                                    <a href="#" class="dropdown-item"><i class="bi bi-pencil text-warning"></i> Edit</a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td><span class="badge bg-success-subtle border-success-subtle"><i class="bi bi-check-circle-fill"></i> Yes</span></td>
+                            <td>EMP005</td>
+                            <td><strong>Vikram Singh</strong></td>
+                            <td>+91 96543 21098</td>
+                            <td>vikram.singh@gmail.com</td>
+                            <td>Manager</td>
+                            <td>Project Manager</td>
+                            <td>Rahul Sharma</td>
+                            <td class="action-btn-cell">
+                                <button class="btn-light-border" onclick="toggleDropdown(this)"><i class="fa fa-ellipsis-v"></i></button>
+                                <div class="dropdown-menu">
+                                    <a href="#" class="dropdown-item"><i class="bi bi-eye text-primary"></i> View</a>
+                                    <a href="#" class="dropdown-item"><i class="bi bi-pencil text-warning"></i> Edit</a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td><span class="badge bg-success-subtle border-success-subtle"><i class="bi bi-check-circle-fill"></i> Yes</span></td>
+                            <td>EMP006</td>
+                            <td><strong>Neha Gupta</strong></td>
+                            <td>+91 95432 10987</td>
+                            <td>neha.gupta@gmail.com</td>
+                            <td>Employee</td>
+                            <td>QA Engineer</td>
+                            <td>Vikram Singh</td>
+                            <td class="action-btn-cell">
+                                <button class="btn-light-border" onclick="toggleDropdown(this)"><i class="fa fa-ellipsis-v"></i></button>
+                                <div class="dropdown-menu">
+                                    <a href="#" class="dropdown-item"><i class="bi bi-eye text-primary"></i> View</a>
+                                    <a href="#" class="dropdown-item"><i class="bi bi-pencil text-warning"></i> Edit</a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>7</td>
+                            <td><span class="badge bg-success-subtle border-success-subtle"><i class="bi bi-check-circle-fill"></i> Yes</span></td>
+                            <td>EMP007</td>
+                            <td><strong>Rohan Mehta</strong></td>
+                            <td>+91 94321 09876</td>
+                            <td>rohan.mehta@gmail.com</td>
+                            <td>Employee</td>
+                            <td>Backend Developer</td>
+                            <td>Vikram Singh</td>
+                            <td class="action-btn-cell">
+                                <button class="btn-light-border" onclick="toggleDropdown(this)"><i class="fa fa-ellipsis-v"></i></button>
+                                <div class="dropdown-menu">
+                                    <a href="#" class="dropdown-item"><i class="bi bi-eye text-primary"></i> View</a>
+                                    <a href="#" class="dropdown-item"><i class="bi bi-pencil text-warning"></i> Edit</a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>8</td>
+                            <td><span class="badge bg-danger-subtle border-danger-subtle text-danger"><i class="bi bi-x-circle-fill"></i> No</span></td>
+                            <td>EMP008</td>
+                            <td><strong>Pooja Deshmukh</strong></td>
+                            <td>+91 93210 98765</td>
+                            <td>pooja.deshmukh@gmail.com</td>
+                            <td>Employee</td>
+                            <td>Business Analyst</td>
+                            <td>Rahul Sharma</td>
+                            <td class="action-btn-cell">
+                                <button class="btn-light-border" onclick="toggleDropdown(this)"><i class="fa fa-ellipsis-v"></i></button>
+                                <div class="dropdown-menu">
+                                    <a href="#" class="dropdown-item"><i class="bi bi-eye text-primary"></i> View</a>
+                                    <a href="#" class="dropdown-item"><i class="bi bi-pencil text-warning"></i> Edit</a>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ╔══════════════════════════════════════════════════════════╗
+     ║  PAGE 3: CREATE EMPLOYEE FORM                           ║
+     ╚══════════════════════════════════════════════════════════╝ -->
+<div class="page-section" id="page-create">
+    <div class="card page-header-card">
+        <div class="card-body-flex" style="display:flex;align-items:center;justify-content:space-between;width:100%;">
+            <div><h1 class="page-heading">Add New Employee</h1><nav class="breadcrumb-nav"><ol class="breadcrumb-list"><li><a href="#" onclick="showPage('dashboard');return false">Dashboard</a></li><li><a href="#" onclick="showPage('employees');return false">Employees</a></li><li class="active">Create</li></ol></nav></div>
+            <div class="header-actions"><button class="btn-back" onclick="showPage('employees')"><i class="bi bi-arrow-left"></i> Back</button></div>
+        </div>
+    </div>
+
+    <div class="card form-card">
+        <!-- Tab Nav -->
+        <div class="form-tabs-wrapper" style="overflow-x:auto;">
+            <ul class="form-tabs" style="white-space:nowrap;display:flex;gap:4px;">
+                <li><button type="button" class="form-tab active" onclick="switchFormTab('tab1', this)">1. Personal Details</button></li>
+                <li><button type="button" class="form-tab" onclick="switchFormTab('tab2', this)">2. Basic Info</button></li>
+                <li><button type="button" class="form-tab" onclick="switchFormTab('tab3', this)">3. Education</button></li>
+            </ul>
+        </div>
+
+        <!-- Form Body -->
+        <div class="form-body">
+            <form id="employeeForm" novalidate>
+                <!-- TAB 1 CONTENT: IDENTITY & PERSONAL -->
+                <div class="tab-content active-tab" id="form-tab1">
+                    <div class="section-title-row"><h5 class="section-title">IDENTITY & PERSONAL DETAILS</h5></div>
+                    <div class="form-container-card">
+
+                        <!-- Section 1: Basic Profile -->
+                        <div class="settings-section-row">
+                            <div class="section-sidebar">
+                                <h6 class="sidebar-title"><i class="bi bi-person-badge text-primary"></i> Basic Profile</h6>
+                                <p class="sidebar-desc">Employee basic identity details, date of birth, gender, and photograph.</p>
+                            </div>
+                            <div class="section-content">
+                                <div class="form-grid">
+                                    <div class="form-group"><label class="pm-label">EMPLOYEE CODE / ID <span class="text-danger">*</span></label><input type="text" class="form-control" style="background:#eaecf4" value="EMP00000003" readonly></div>
+                                    <div class="form-group"><label class="pm-label">DATE OF BIRTH <span class="text-danger">*</span></label><input type="date" class="form-control" required></div>
+                                    <div class="form-group"><label class="pm-label">GENDER <span class="text-danger">*</span></label><select class="form-select" required><option value="">Select Gender</option><option>Male</option><option>Female</option><option>Other</option></select></div>
+                                    <div class="form-group"><label class="pm-label">FIRST NAME <span class="text-danger">*</span></label><input type="text" class="form-control" placeholder="Enter first name" required></div>
+                                    <div class="form-group"><label class="pm-label">MIDDLE NAME</label><input type="text" class="form-control" placeholder="Enter middle name"></div>
+                                    <div class="form-group"><label class="pm-label">LAST NAME <span class="text-danger">*</span></label><input type="text" class="form-control" placeholder="Enter last name" required></div>
+                                    <div class="form-group"><label class="pm-label">PROFILE PHOTO</label><input type="file" class="form-control" accept="image/jpeg,image/png"><div class="form-hint">Max: 2MB (JPG/PNG)</div></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Section 2: Personal Details -->
+                        <div class="settings-section-row">
+                            <div class="section-sidebar">
+                                <h6 class="sidebar-title"><i class="bi bi-person-lines-fill text-success"></i> Personal Details</h6>
+                                <p class="sidebar-desc">Marital status, blood group, and nationality specifications.</p>
+                            </div>
+                            <div class="section-content">
+                                <div class="form-grid">
+                                    <div class="form-group"><label class="pm-label">MARITAL STATUS</label><select class="form-select"><option value="">Select Marital Status</option><option>Single</option><option>Married</option><option>Divorced</option><option>Widowed</option></select></div>
+                                    <div class="form-group"><label class="pm-label">BLOOD GROUP</label><select class="form-select"><option value="">Select Blood Group</option><option>A+</option><option>A-</option><option>B+</option><option>B-</option><option>O+</option><option>O-</option><option>AB+</option><option>AB-</option></select></div>
+                                    <div class="form-group"><label class="pm-label">NATIONALITY</label><select class="form-select"><option value="">Select Nationality</option><option value="Indian" selected>India</option><option>United States</option><option>United Kingdom</option><option>Canada</option><option>Australia</option></select></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Section 3: Contact Info -->
+                        <div class="settings-section-row">
+                            <div class="section-sidebar">
+                                <h6 class="sidebar-title"><i class="bi bi-telephone text-info"></i> Contact Info</h6>
+                                <p class="sidebar-desc">Personal and official mobile numbers and emails.</p>
+                            </div>
+                            <div class="section-content">
+                                <div class="form-grid">
+                                    <div class="form-group"><label class="pm-label">PERSONAL MOBILE <span class="text-danger">*</span></label><div class="phone-input-group"><span class="phone-prefix"><img src="https://flagcdn.com/w20/in.png" alt="IN" class="flag-icon"> +91</span><input type="text" class="form-control phone-input" placeholder="Enter mobile number" required></div></div>
+                                    <div class="form-group"><label class="pm-label">ALTERNATE NUMBER</label><div class="phone-input-group"><span class="phone-prefix"><img src="https://flagcdn.com/w20/in.png" alt="IN" class="flag-icon"> +91</span><input type="text" class="form-control phone-input" placeholder="(Optional)"></div></div>
+                                    <div class="form-group"><label class="pm-label">OFFICIAL NUMBER</label><div class="phone-input-group"><span class="phone-prefix"><img src="https://flagcdn.com/w20/in.png" alt="IN" class="flag-icon"> +91</span><input type="text" class="form-control phone-input" style="background:#eaecf4" placeholder="Generated by HR" readonly></div></div>
+                                    <div class="form-group"><label class="pm-label">PERSONAL EMAIL <span class="text-danger">*</span></label><input type="email" class="form-control" placeholder="employee@example.com" required></div>
+                                    <div class="form-group"><label class="pm-label">OFFICIAL EMAIL <span class="text-danger">*</span></label><input type="email" class="form-control" style="background:#eaecf4" placeholder="Generated by HR" readonly></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Section 4: Security & Access -->
+                        <div class="settings-section-row">
+                            <div class="section-sidebar">
+                                <h6 class="sidebar-title"><i class="bi bi-shield-lock text-warning"></i> System Access</h6>
+                                <p class="sidebar-desc">User login credentials, roles, and administrative permissions.</p>
+                            </div>
+                            <div class="section-content">
+                                <div class="form-grid form-grid-2col">
+                                    <div class="toggle-card">
+                                        <div class="toggle-header">
+                                            <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
+                                            <label class="toggle-label">System Access Enabled</label>
+                                        </div>
+                                        <p class="toggle-desc"><i class="bi bi-info-circle"></i> When disabled, user will not be able to login to portal.</p>
+                                    </div>
+                                    <div class="toggle-card">
+                                        <div class="toggle-header">
+                                            <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+                                            <label class="toggle-label">Temporary Password Link</label>
+                                        </div>
+                                        <p class="toggle-desc"><i class="bi bi-info-circle"></i> Send password setup link to personal email upon creation.</p>
+                                    </div>
+                                </div>
+                                <div class="form-grid form-grid-2col" style="margin-top:16px">
+                                    <div class="form-group"><label class="pm-label">SYSTEM ROLE <span class="text-danger">*</span></label><select class="form-select" required><option value="">Select Role</option><option>Employee</option><option>Manager</option><option>HR Admin</option><option>Super Admin</option></select></div>
+                                    <div class="form-group"><label class="pm-label">SYSTEM PASSWORD</label><div class="input-with-icon"><input type="password" class="form-control" placeholder="Leave empty for auto-generated"><button type="button" class="input-icon-btn"><i class="bi bi-eye"></i></button></div></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Section 5: Additional Info -->
+                        <div class="settings-section-row last">
+                            <div class="section-sidebar">
+                                <h6 class="sidebar-title"><i class="bi bi-chat-left-text text-secondary"></i> Remarks & Notes</h6>
+                                <p class="sidebar-desc">Internal notes, physical identification marks, and other details.</p>
+                            </div>
+                            <div class="section-content">
+                                <div class="form-grid form-grid-1col">
+                                    <div class="form-group"><label class="pm-label">REMARK</label><textarea class="form-control" rows="3" maxlength="500" placeholder="Enter remark..." id="remarkTextarea"></textarea><div class="form-hint" id="remarkCounter">0 / 500 characters</div></div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="form-actions"><button type="button" class="btn-primary-rounded" onclick="switchFormTab('tab2', document.querySelectorAll('.form-tab')[1])">Continue to Basic Info <i class="bi bi-arrow-right"></i></button></div>
+                </div>
+
+                <!-- TAB 2 CONTENT: BASIC INFO -->
+                <div class="tab-content" id="form-tab2">
+                    <div class="section-title-row">
+                        <h5 class="section-title">BASIC CORPORATE DEPLOYMENT INFO</h5>
+                    </div>
+
+                    <!-- New Basic Info Entry Card -->
+                    <div style="border:1px solid #e2e8f0;border-radius:12px;background:#fff;padding:18px 22px;margin-bottom:24px;box-shadow:0 1px 3px rgba(0,0,0,0.03);">
+                        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;border-bottom:1px solid #f1f5f9;padding-bottom:12px;">
+                            <div style="display:flex;align-items:center;gap:8px;font-size:13.5px;font-weight:700;color:#1d6ae5;">
+                                <i class="bi bi-plus-square"></i> New Basic Info Entry
+                            </div>
+                            <button type="button" style="background:none;border:none;color:#94a3b8;font-size:16px;cursor:pointer;line-height:1;">✕</button>
+                        </div>
+
+                        <!-- Form Grid -->
+                        <div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:18px 22px;">
+                            <!-- Row 1 -->
+                            <div class="form-group" style="margin-bottom:0;">
+                                <label class="pm-label" style="font-size:11px;font-weight:700;color:#475569;margin-bottom:6px;display:block;letter-spacing:0.3px;">START DATE <span style="color:#ef4444;">*</span></label>
+                                <input type="date" class="form-control" style="border-radius:6px;font-size:13px;border-color:#cbd5e1;padding:8px 12px;" required>
+                            </div>
+                            <div class="form-group" style="margin-bottom:0;">
+                                <label class="pm-label" style="font-size:11px;font-weight:700;color:#475569;margin-bottom:6px;display:block;letter-spacing:0.3px;">BRANCH <span style="color:#ef4444;">*</span></label>
+                                <select class="form-select" style="border-radius:6px;font-size:13px;border-color:#cbd5e1;padding:8px 12px;" required>
+                                    <option value="">Select Branch</option>
+                                    <option>HQ Raipur</option>
+                                    <option>Mumbai Office</option>
+                                    <option>Delhi Branch</option>
+                                    <option>Bangalore Branch</option>
+                                </select>
+                            </div>
+                            <div class="form-group" style="margin-bottom:0;">
+                                <label class="pm-label" style="font-size:11px;font-weight:700;color:#475569;margin-bottom:6px;display:block;letter-spacing:0.3px;">PARENT COMPANY <span style="color:#ef4444;">*</span></label>
+                                <select class="form-select" style="border-radius:6px;font-size:13px;border-color:#cbd5e1;padding:8px 12px;" required>
+                                    <option value="">Select Corporate Unit</option>
+                                    <option>Arunachal Solar Software Systems Pvt Ltd</option>
+                                    <option>Arunachal Solar Enterprise Solutions</option>
+                                    <option>Arunachal Solar Global Tech</option>
+                                </select>
+                            </div>
+
+                            <!-- Row 2 -->
+                            <div class="form-group" style="margin-bottom:0;">
+                                <label class="pm-label" style="font-size:11px;font-weight:700;color:#475569;margin-bottom:6px;display:block;letter-spacing:0.3px;">DESIGNATION <span style="color:#ef4444;">*</span></label>
+                                <select class="form-select" style="border-radius:6px;font-size:13px;border-color:#cbd5e1;padding:8px 12px;" required>
+                                    <option value="">Select Designation</option>
+                                    <option>Senior Full Stack Developer</option>
+                                    <option>HR Executive</option>
+                                    <option>UI/UX Designer</option>
+                                    <option>DevOps Engineer</option>
+                                    <option>Quality Assurance Lead</option>
+                                    <option>Operations Manager</option>
+                                    <option>Accounts Specialist</option>
+                                    <option>Technical Support Engineer</option>
+                                </select>
+                            </div>
+                            <div class="form-group" style="margin-bottom:0;">
+                                <label class="pm-label" style="font-size:11px;font-weight:700;color:#475569;margin-bottom:6px;display:block;letter-spacing:0.3px;">DEPARTMENT <span style="color:#ef4444;">*</span></label>
+                                <select class="form-select" style="border-radius:6px;font-size:13px;border-color:#cbd5e1;padding:8px 12px;" required>
+                                    <option value="">Select Department</option>
+                                    <option>Engineering</option>
+                                    <option>Human Resources</option>
+                                    <option>Design & Creative</option>
+                                    <option>Infrastructure & IT</option>
+                                    <option>Quality Assurance</option>
+                                    <option>Operations</option>
+                                    <option>Finance & Accounts</option>
+                                    <option>Customer Support</option>
+                                </select>
+                            </div>
+                            <div class="form-group" style="margin-bottom:0;">
+                                <label class="pm-label" style="font-size:11px;font-weight:700;color:#475569;margin-bottom:6px;display:block;letter-spacing:0.3px;">ATTENDANCE MARK TYPE <span style="color:#ef4444;">*</span></label>
+                                <select class="form-select" style="border-radius:6px;font-size:13px;border-color:#cbd5e1;padding:8px 12px;" required>
+                                    <option value="">Select Attendance Mark Type</option>
+                                    <option>Biometric / Fingerprint</option>
+                                    <option>Web Portal / Browser</option>
+                                    <option>Mobile App Geofencing</option>
+                                    <option>Facial Recognition</option>
+                                    <option>Auto Present</option>
+                                </select>
+                            </div>
+
+                            <!-- Row 3 -->
+                            <!-- <div class="form-group" style="margin-bottom:0;">
+                                <label class="pm-label" style="font-size:11px;font-weight:700;color:#475569;margin-bottom:6px;display:block;letter-spacing:0.3px;">SKIP ATTENDANCE FINALIZATION CRON</label>
+                                <div style="display:flex;gap:20px;align-items:center;height:38px;">
+                                    <label style="display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;color:#475569;cursor:pointer;margin:0;">
+                                        <input type="radio" name="skip_cron" value="YES" style="accent-color:#1d6ae5;cursor:pointer;"> YES
+                                    </label>
+                                    <label style="display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;color:#475569;cursor:pointer;margin:0;">
+                                        <input type="radio" name="skip_cron" value="NO" checked style="accent-color:#1d6ae5;cursor:pointer;"> NO
+                                    </label>
+                                </div>
+                            </div> -->
+                            <!-- <div class="form-group" style="margin-bottom:0;">
+                                <label class="pm-label" style="font-size:11px;font-weight:700;color:#475569;margin-bottom:6px;display:block;letter-spacing:0.3px;">WEBSITE ATTENDANCE MARK</label>
+                                <div style="display:flex;gap:20px;align-items:center;height:38px;">
+                                    <label style="display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;color:#475569;cursor:pointer;margin:0;">
+                                        <input type="radio" name="website_attendance" value="YES" style="accent-color:#1d6ae5;cursor:pointer;"> YES
+                                    </label>
+                                    <label style="display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;color:#475569;cursor:pointer;margin:0;">
+                                        <input type="radio" name="website_attendance" value="NO" checked style="accent-color:#1d6ae5;cursor:pointer;"> NO
+                                    </label>
+                                </div>
+                            </div> -->
+                            <div class="form-group" style="margin-bottom:0;">
+                                <label class="pm-label" style="font-size:11px;font-weight:700;color:#475569;margin-bottom:6px;display:block;letter-spacing:0.3px;">REPORTING MANAGER <span style="color:#ef4444;">*</span></label>
+                                <select class="form-select" style="border-radius:6px;font-size:13px;border-color:#cbd5e1;padding:8px 12px;" required>
+                                    <option value="">Select Manager</option>
+                                    <option>Rahul Sharma (EMP001)</option>
+                                    <option>Amit Verma (EMP003)</option>
+                                    <option>Vikram Singh (EMP005)</option>
+                                    <option>Rohan Mehta (EMP007)</option>
+                                </select>
+                            </div>
+
+                            <!-- Row 4 -->
+                            <div class="form-group" style="margin-bottom:0;">
+                                <label class="pm-label" style="font-size:11px;font-weight:700;color:#475569;margin-bottom:6px;display:block;letter-spacing:0.3px;">EMPLOYMENT TYPE <span style="color:#ef4444;">*</span></label>
+                                <select class="form-select" style="border-radius:6px;font-size:13px;border-color:#cbd5e1;padding:8px 12px;" required>
+                                    <option value="">Select Employment Type</option>
+                                    <option>Full Time</option>
+                                    <option>Part Time</option>
+                                    <option>Contract</option>
+                                    <option>Internship</option>
+                                    <option>Consultant</option>
+                                </select>
+                            </div>
+                            <div class="form-group" style="margin-bottom:0;">
+                                <label class="pm-label" style="font-size:11px;font-weight:700;color:#475569;margin-bottom:6px;display:block;letter-spacing:0.3px;">EMPLOYMENT STATUS <span style="color:#ef4444;">*</span></label>
+                                <select class="form-select" style="border-radius:6px;font-size:13px;border-color:#cbd5e1;padding:8px 12px;" required>
+                                    <option value="">Select Employment Status</option>
+                                    <option>Probation</option>
+                                    <option>Confirmed</option>
+                                    <option>Trainee</option>
+                                    <option>Notice Period</option>
+                                </select>
+                            </div>
+                            <div></div> <!-- Empty for alignment -->
+
+                            <!-- Row 5: Reason (1 col) & Remarks (2 cols) -->
+                            <div class="form-group" style="grid-column: span 1;margin-bottom:0;">
+                                <label class="pm-label" style="font-size:11px;font-weight:700;color:#475569;margin-bottom:6px;display:block;letter-spacing:0.3px;">REASON</label>
+                                <input type="text" class="form-control" placeholder="e.g. Promotion, Transfer..." style="border-radius:6px;font-size:13px;border-color:#cbd5e1;padding:8px 12px;height:42px;">
+                            </div>
+                            <div class="form-group" style="grid-column: span 2;margin-bottom:0;">
+                                <label class="pm-label" style="font-size:11px;font-weight:700;color:#475569;margin-bottom:6px;display:block;letter-spacing:0.3px;">REMARKS</label>
+                                <textarea class="form-control" rows="1" placeholder="Notes for this entry..." style="border-radius:6px;font-size:13px;border-color:#cbd5e1;padding:8px 12px;resize:none;height:42px;"></textarea>
+                            </div>
+                        </div>
+
+                        <!-- Card Action Buttons -->
+                        <div style="display:flex;justify-content:flex-end;gap:12px;margin-top:22px;">
+                            <!-- <button type="button" class="btn-card-cancel" onclick="switchFormTab('tab1', document.querySelectorAll('.form-tab')[0])">
+                                <i class="bi bi-x-lg"></i> Cancel
+                            </button> -->
+                            <!-- <button type="button" class="btn-card-save-success" onclick="switchFormTab('tab3', document.querySelectorAll('.form-tab')[2])">
+                                <i class="bi bi-check2-circle"></i> Save Entry
+                            </button> -->
+                        </div>
+                    </div>
+
+                    <!-- Basic Info Update History Header -->
+                    <div style="display:flex;align-items:center;gap:8px;font-size:13.5px;font-weight:700;color:#1d6ae5;margin-top:10px;margin-bottom:12px;">
+                        <i class="bi bi-clock-history"></i> Basic Info Update History
+                    </div>
+
+                    <!-- Bottom Nav Actions -->
+                    <div class="form-actions" style="margin-top:16px;">
+                        <button type="button" class="btn-outline-primary-rounded" onclick="switchFormTab('tab1', document.querySelectorAll('.form-tab')[0])"><i class="bi bi-arrow-left"></i> Back</button>
+                        <button type="button" class="btn-primary-rounded" onclick="switchFormTab('tab3', document.querySelectorAll('.form-tab')[2])">Continue to Education <i class="bi bi-arrow-right"></i></button>
+                    </div>
+                </div>
+
+                <!-- TAB 3 CONTENT: EDUCATION -->
+                <div class="tab-content" id="form-tab3">
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:12px;">
+                        <div style="display:flex;align-items:center;gap:12px;">
+                            <h5 style="font-size:15px;font-weight:700;color:#1d6ae5;margin:0;letter-spacing:0.5px;">EDUCATIONAL QUALIFICATIONS</h5>
+                            <span style="border:1px solid #16a34a;color:#16a34a;background:#e5f9ee;padding:3px 12px;border-radius:50px;font-weight:600;font-size:12px;display:inline-flex;align-items:center;gap:5px;">
+                                <i class="bi bi-shield-check"></i> Verify
+                            </span>
+                        </div>
+                        <button type="button" class="btn-card-save" style="padding:8px 20px;" onclick="addEducationRow()">
+                            <i class="bi bi-plus-circle"></i> Add Entry
+                        </button>
+                    </div>
+
+                    <!-- Education Entry Card -->
+                    <div style="border:1px solid #e2e8f0;border-radius:12px;background:#fff;padding:18px 22px;margin-bottom:20px;box-shadow:0 1px 3px rgba(0,0,0,0.03);">
+                        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;border-bottom:1px solid #f1f5f9;padding-bottom:12px;">
+                            <div style="display:flex;align-items:center;gap:8px;font-size:13.5px;font-weight:700;color:#1d6ae5;">
+                                <i class="bi bi-plus-square"></i> Add Education Entry
+                            </div>
+                            <button type="button" style="background:none;border:none;color:#94a3b8;font-size:16px;cursor:pointer;line-height:1;">✕</button>
+                        </div>
+
+                        <div style="overflow-x:auto;">
+                            <table style="width:100%;border-collapse:collapse;min-width:1100px;" id="educationTable">
+                                <thead>
+                                    <tr style="background:#f8fafc;border-top:1px solid #e2e8f0;border-bottom:1px solid #e2e8f0;">
+                                        <th style="padding:10px 12px;font-size:11px;font-weight:700;color:#64748b;letter-spacing:0.3px;width:15%;">DEGREE <span style="color:#ef4444;">*</span></th>
+                                        <th style="padding:10px 12px;font-size:11px;font-weight:700;color:#64748b;letter-spacing:0.3px;width:12%;">TYPE</th>
+                                        <th style="padding:10px 12px;font-size:11px;font-weight:700;color:#64748b;letter-spacing:0.3px;width:10%;">PASS OUT YEAR</th>
+                                        <th style="padding:10px 12px;font-size:11px;font-weight:700;color:#64748b;letter-spacing:0.3px;width:18%;">INSTITUTION / UNIVERSITY</th>
+                                        <th style="padding:10px 12px;font-size:11px;font-weight:700;color:#64748b;letter-spacing:0.3px;width:14%;">SPECIALIZATION</th>
+                                        <th style="padding:10px 12px;font-size:11px;font-weight:700;color:#64748b;letter-spacing:0.3px;width:9%;">CGPA / %</th>
+                                        <th style="padding:10px 12px;font-size:11px;font-weight:700;color:#64748b;letter-spacing:0.3px;width:12%;">PROOF DOCUMENT</th>
+                                        <th style="padding:10px 12px;font-size:11px;font-weight:700;color:#64748b;letter-spacing:0.3px;width:10%;">REMARKS</th>
+                                        <th style="padding:10px 12px;font-size:11px;font-weight:700;color:#64748b;letter-spacing:0.3px;width:8%;text-align:center;">ACTION</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="educationTableBody">
+                                    <tr class="edu-row" style="border-bottom:1px solid #f1f5f9;">
+                                        <td style="padding:10px 8px;">
+                                            <input type="text" class="form-control form-control-sm" placeholder="e.g. B.Tech / MBA / BCA" style="border-radius:6px;font-size:12.5px;border-color:#cbd5e1;">
+                                        </td>
+                                        <td style="padding:10px 8px;">
+                                            <select class="form-select form-select-sm" style="border-radius:6px;font-size:12.5px;border-color:#cbd5e1;">
+                                                <option value="">Select Type</option>
+                                                <option>Full Time</option>
+                                                <option>Part Time</option>
+                                                <option>Distance</option>
+                                                <option>Diploma</option>
+                                                <option>Certification</option>
+                                            </select>
+                                        </td>
+                                        <td style="padding:10px 8px;">
+                                            <select class="form-select form-select-sm" style="border-radius:6px;font-size:12.5px;border-color:#cbd5e1;">
+                                                <option value="">Select Year</option>
+                                                <option>2026</option>
+                                                <option>2025</option>
+                                                <option>2024</option>
+                                                <option>2023</option>
+                                                <option>2022</option>
+                                                <option>2021</option>
+                                                <option>2020</option>
+                                                <option>2019</option>
+                                                <option>2018</option>
+                                                <option>2017</option>
+                                                <option>2016</option>
+                                                <option>2015</option>
+                                            </select>
+                                        </td>
+                                        <td style="padding:10px 8px;">
+                                            <input type="text" class="form-control form-control-sm" placeholder="University / College Name" style="border-radius:6px;font-size:12.5px;border-color:#cbd5e1;">
+                                        </td>
+                                        <td style="padding:10px 8px;">
+                                            <input type="text" class="form-control form-control-sm" placeholder="e.g. Computer Science" style="border-radius:6px;font-size:12.5px;border-color:#cbd5e1;">
+                                        </td>
+                                        <td style="padding:10px 8px;">
+                                            <input type="text" class="form-control form-control-sm" placeholder="0.00 - 100" style="border-radius:6px;font-size:12.5px;border-color:#cbd5e1;">
+                                        </td>
+                                        <td style="padding:10px 8px;">
+                                            <input type="file" class="form-control form-control-sm" style="border-radius:6px;font-size:11px;border-color:#cbd5e1;">
+                                        </td>
+                                        <td style="padding:10px 8px;">
+                                            <textarea class="form-control form-control-sm" rows="1" placeholder="Add remarks..." style="border-radius:6px;font-size:12px;resize:none;border-color:#cbd5e1;"></textarea>
+                                        </td>
+                                        <td style="padding:10px 8px;text-align:center;white-space:nowrap;">
+                                            <button type="button" class="btn-table-action-add" onclick="addEducationRow()" title="Add Row"><i class="bi bi-plus-lg"></i></button>
+                                            <button type="button" class="btn-table-action-delete" onclick="removeEducationRow(this)" title="Delete Row"><i class="bi bi-trash"></i></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Card Action Buttons -->
+                        <div style="display:flex;justify-content:flex-end;gap:12px;margin-top:22px;">
+                            <!-- <button type="button" class="btn-card-cancel" onclick="switchFormTab('tab2', document.querySelectorAll('.form-tab')[1])">
+                                <i class="bi bi-x-lg"></i> Cancel
+                            </button>
+                            <button type="button" class="btn-card-save" onclick="alert('Education details saved successfully!')">
+                                <i class="bi bi-check2-circle"></i> Save Entry
+                            </button> -->
+                        </div>
+                    </div>
+
+                    <!-- Bottom Nav Actions -->
+                    <div class="form-actions" style="margin-top:20px;">
+                        <button type="button" class="btn-outline-primary-rounded" onclick="switchFormTab('tab2', document.querySelectorAll('.form-tab')[1])"><i class="bi bi-arrow-left"></i> Back</button>
+                        <button type="button" class="btn-primary-rounded" onclick="alert('Employee registration completed successfully!')"><i class="bi bi-check2-all"></i> Save & Submit Employee</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- ╔══════════════════════════════════════════════════════════╗
+     ║  PAGE 4: ATTENDANCE RECORDS                             ║
+     ╚══════════════════════════════════════════════════════════╝ -->
+<div class="page-section" id="page-attendance">
+  <style>
+    /* Attendance Page Scoped Styles */
+    #page-attendance .att-card{background:#fff;border-radius:12px;box-shadow:0 1px 2px rgba(16,24,40,0.04);}
+    #page-attendance .att-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;padding:18px 22px;margin-bottom:16px;}
+    #page-attendance .att-header h1{margin:0 0 6px;font-size:19px;font-weight:700;display:flex;align-items:center;gap:10px;color:#1f2937;}
+    #page-attendance .att-header h1 i{color:#3b6fe0;font-size:17px;}
+    #page-attendance .att-breadcrumb{font-size:12.5px;color:#6b7280;}
+    #page-attendance .att-breadcrumb b{color:#1f2937;font-weight:700;}
+    #page-attendance .att-actions{display:flex;gap:12px;flex-wrap:wrap;}
+    #page-attendance .att-btn{display:flex;align-items:center;gap:8px;padding:10px 18px;border-radius:8px;border:none;cursor:pointer;font-size:13px;font-weight:700;white-space:nowrap;font-family:inherit;}
+    #page-attendance .att-btn-primary{background:#3b6fe0;color:#fff;}
+    #page-attendance .att-btn-primary:hover{background:#2f5bc4;}
+    #page-attendance .att-btn-warning{background:#f5a524;color:#fff;}
+    #page-attendance .att-btn-warning:hover{background:#df930f;}
+    #page-attendance .att-btn-outline-green{background:#fff;border:1px solid #16a34a;color:#16a34a;}
+    #page-attendance .att-btn-outline-green:hover{background:#f0fbf4;}
+    #page-attendance .att-btn-outline-blue{background:#fff;border:1px solid #3b6fe0;color:#3b6fe0;}
+    #page-attendance .att-btn-outline-blue:hover{background:#f2f6ff;}
+    #page-attendance .att-alert{display:flex;gap:14px;align-items:flex-start;background:#fdf6df;border:1px solid #f3dfa0;border-left:5px solid #f5a524;border-radius:10px;padding:16px 20px;margin-bottom:16px;}
+    #page-attendance .att-alert-icon{width:40px;height:40px;border-radius:50%;flex-shrink:0;background:#f7a463;color:#fff;display:flex;align-items:center;justify-content:center;font-size:16px;}
+    #page-attendance .att-alert-title{font-weight:700;font-size:14px;margin-bottom:4px;color:#1f2937;}
+    #page-attendance .att-alert-desc{font-size:12.5px;color:#6b7280;line-height:1.6;}
+    #page-attendance .att-badge-allow{background:#fbdcd3;color:#e0603f;padding:2px 8px;border-radius:6px;font-weight:700;font-size:12px;}
+    #page-attendance .att-controls{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:14px 20px;margin-bottom:16px;}
+    #page-attendance .att-show{display:flex;align-items:center;gap:10px;font-size:12.5px;font-weight:700;color:#6b7280;}
+    #page-attendance .att-show select{padding:8px 30px 8px 12px;border:1px solid #e6e9ee;border-radius:8px;font-size:13px;font-weight:600;color:#1f2937;background:#fff;appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6'><path d='M0 0l5 6 5-6z' fill='%236b7280'/></svg>");background-repeat:no-repeat;background-position:right 12px center;}
+    #page-attendance .att-stats{display:grid;grid-template-columns:repeat(6,1fr);gap:16px;margin-bottom:16px;}
+    #page-attendance .att-stat{padding:18px;display:flex;align-items:flex-start;justify-content:space-between;}
+    #page-attendance .att-stat-label{font-size:12px;color:#6b7280;font-weight:600;margin-bottom:10px;}
+    #page-attendance .att-stat-value{font-size:25px;font-weight:700;}
+    #page-attendance .att-stat-icon{width:38px;height:38px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:15px;}
+    #page-attendance .icon-blue{background:#e7f0ff;color:#3b6fe0;}
+    #page-attendance .icon-green{background:#e5f9ee;color:#16a34a;}
+    #page-attendance .icon-red{background:#fdeaea;color:#ef4444;}
+    #page-attendance .icon-cyan{background:#e3f7fb;color:#17a2c9;}
+    #page-attendance .icon-yellow{background:#fff4e0;color:#f5a524;}
+    #page-attendance .v-dark{color:#1f2937;}
+    #page-attendance .v-green{color:#16a34a;}
+    #page-attendance .v-red{color:#ef4444;}
+    #page-attendance .v-blue{color:#3b6fe0;}
+    #page-attendance .v-yellow{color:#f5a524;}
+    #page-attendance .att-table-card{padding:20px 22px;}
+    #page-attendance .att-search-row{display:flex;align-items:center;justify-content:flex-end;gap:10px;margin-bottom:14px;}
+    #page-attendance .att-search-row span{font-size:12.5px;font-weight:700;color:#1f2937;}
+    #page-attendance .att-search-row input{padding:8px 12px;border:1px solid #e6e9ee;border-radius:8px;font-size:13px;width:220px;outline:none;}
+    #page-attendance .att-table-scroll{overflow-x:auto;}
+    #page-attendance .att-table{width:100%;border-collapse:collapse;min-width:1450px;}
+    #page-attendance .att-table thead th{background:#f8f9fb;text-align:left;padding:12px 14px;font-size:11px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.3px;border-top:1px solid #e6e9ee;border-bottom:1px solid #e6e9ee;white-space:nowrap;}
+    #page-attendance .att-sort{display:inline-flex;flex-direction:column;margin-left:6px;vertical-align:middle;line-height:.6;}
+    #page-attendance .att-sort i{font-size:8px;color:#c7cdd6;}
+    #page-attendance .att-table tbody td{padding:12px 14px;font-size:12.5px;color:#1f2937;border-bottom:1px solid #e6e9ee;white-space:nowrap;}
+    #page-attendance .att-table tbody tr:hover{background:#f9fbfe;}
+    #page-attendance .att-no-data td{padding:46px 14px;text-align:center;color:#6b7280;font-size:13px;border-bottom:1px solid #e6e9ee;}
+    @media (max-width:1100px){#page-attendance .att-stats{grid-template-columns:repeat(3,1fr);}}
+    @media (max-width:640px){#page-attendance .att-stats{grid-template-columns:repeat(2,1fr);}}
+  </style>
+
+  <!-- Header Card -->
+  <div class="att-card att-header">
+    <div>
+      <h1><i class="fa-regular fa-calendar-check"></i> Attendance List</h1>
+      <div class="att-breadcrumb">Dashboard / <b>Attendance</b> / Attendance List</div>
+    </div>
+    <div class="att-actions">
+      <button class="att-btn att-btn-primary" id="clockInBtn" onclick="clockAction('in')"><i class="fa-solid fa-right-to-bracket"></i> Clock In</button>
+      <button class="att-btn att-btn-warning" id="clockOutBtn" onclick="clockAction('out')" disabled style="opacity:.5;cursor:not-allowed;"><i class="fa-solid fa-right-from-bracket"></i> Clock Out</button>
+    </div>
+  </div>
+
+  <!-- Clock Status -->
+  <div class="att-card" id="clockStatusCard" style="padding:10px 20px;display:flex;align-items:center;gap:8px;font-size:13px;color:#6b7280;">
+    <i class="fa-solid fa-circle-info"></i> <span id="clockStatusText">Not clocked in today.</span>
+  </div>
+
+  <!-- Location Alert -->
+  <div class="att-alert">
+    <div class="att-alert-icon"><i class="fa-solid fa-location-dot"></i></div>
+    <div>
+      <div class="att-alert-title">Location Access Required</div>
+      <div class="att-alert-desc">
+        Please click <span class="att-badge-allow">"Allow"</span> when prompted. We only fetch your current device's latitude and longitude securely when you Clock In or Clock Out.
+      </div>
+    </div>
+  </div>
+
+  <!-- Controls Row -->
+  <div class="att-card att-controls">
+    <div class="att-show">
+      <span>SHOW</span>
+      <select>
+        <option>10 rows</option>
+        <option>25 rows</option>
+        <option>50 rows</option>
+        <option>100 rows</option>
+      </select>
+    </div>
+    <button class="att-btn att-btn-outline-green"><i class="fa-solid fa-file-excel"></i> Excel</button>
+    <button class="att-btn att-btn-outline-blue"><i class="fa-solid fa-filter"></i> Filters</button>
+  </div>
+
+  <!-- Stats Grid -->
+  <div class="att-stats">
+    <div class="att-card att-stat">
+      <div><div class="att-stat-label">Total Active EMP</div><div class="att-stat-value v-dark">8</div></div>
+      <div class="att-stat-icon icon-blue"><i class="fa-solid fa-user-group"></i></div>
+    </div>
+    <div class="att-card att-stat">
+      <div><div class="att-stat-label">Total Present</div><div class="att-stat-value v-green">7</div></div>
+      <div class="att-stat-icon icon-green"><i class="fa-solid fa-circle-check"></i></div>
+    </div>
+    <div class="att-card att-stat">
+      <div><div class="att-stat-label">Total Absent</div><div class="att-stat-value v-red">1</div></div>
+      <div class="att-stat-icon icon-red"><i class="fa-solid fa-circle-xmark"></i></div>
+    </div>
+    <div class="att-card att-stat">
+      <div><div class="att-stat-label">Total Punches</div><div class="att-stat-value v-blue">13</div></div>
+      <div class="att-stat-icon icon-cyan"><i class="fa-solid fa-fingerprint"></i></div>
+    </div>
+    <div class="att-card att-stat">
+      <div><div class="att-stat-label">Half Days</div><div class="att-stat-value v-yellow">0</div></div>
+      <div class="att-stat-icon icon-yellow"><i class="fa-regular fa-clock"></i></div>
+    </div>
+    <div class="att-card att-stat">
+      <div><div class="att-stat-label">Missing Checkouts</div><div class="att-stat-value v-red">1</div></div>
+      <div class="att-stat-icon icon-red"><i class="fa-solid fa-triangle-exclamation"></i></div>
+    </div>
+  </div>
+
+  <!-- Table Card -->
+  <div class="att-card att-table-card">
+    <div class="att-search-row">
+      <span>SEARCH:</span>
+      <input type="text">
+    </div>
+    <div class="att-table-scroll">
+      <table class="att-table">
+        <thead>
+          <tr>
+            <th>S.NO <span class="att-sort"><i class="fa-solid fa-caret-up"></i><i class="fa-solid fa-caret-down"></i></span></th>
+            <th>Employee Name <span class="att-sort"><i class="fa-solid fa-caret-up"></i><i class="fa-solid fa-caret-down"></i></span></th>
+            <th>Branch <span class="att-sort"><i class="fa-solid fa-caret-up"></i><i class="fa-solid fa-caret-down"></i></span></th>
+            <th>Day <span class="att-sort"><i class="fa-solid fa-caret-up"></i><i class="fa-solid fa-caret-down"></i></span></th>
+            <th>Date <span class="att-sort"><i class="fa-solid fa-caret-up"></i><i class="fa-solid fa-caret-down"></i></span></th>
+            <th>All Punches <span class="att-sort"><i class="fa-solid fa-caret-up"></i><i class="fa-solid fa-caret-down"></i></span></th>
+            <th>Total Entries <span class="att-sort"><i class="fa-solid fa-caret-up"></i><i class="fa-solid fa-caret-down"></i></span></th>
+            <th>Last Punch <span class="att-sort"><i class="fa-solid fa-caret-up"></i><i class="fa-solid fa-caret-down"></i></span></th>
+            <th>Missing Check-Out <span class="att-sort"><i class="fa-solid fa-caret-up"></i><i class="fa-solid fa-caret-down"></i></span></th>
+            <th>In-Office Punches <span class="att-sort"><i class="fa-solid fa-caret-up"></i><i class="fa-solid fa-caret-down"></i></span></th>
+            <th>Out-Office Punches <span class="att-sort"><i class="fa-solid fa-caret-up"></i><i class="fa-solid fa-caret-down"></i></span></th>
+            <th>Hours Worked <span class="att-sort"><i class="fa-solid fa-caret-up"></i><i class="fa-solid fa-caret-down"></i></span></th>
+            <th>Designation / Department <span class="att-sort"><i class="fa-solid fa-caret-up"></i><i class="fa-solid fa-caret-down"></i></span></th>
+            <th>Status <span class="att-sort"><i class="fa-solid fa-caret-up"></i><i class="fa-solid fa-caret-down"></i></span></th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td><strong>Rahul Sharma</strong> <span style="font-size:11px;color:#6b7280;">(EMP001)</span></td>
+            <td>Head Office (Noida)</td>
+            <td>Monday</td>
+            <td>07 Sep 2026</td>
+            <td><span style="background:#eaf1ff;color:#2F6FE4;padding:2px 8px;border-radius:4px;font-size:11.5px;font-weight:600;">09:30 AM (In)</span>, <span style="background:#f1f3f5;color:#495057;padding:2px 8px;border-radius:4px;font-size:11.5px;font-weight:600;">06:30 PM (Out)</span></td>
+            <td>2</td>
+            <td>06:30 PM</td>
+            <td><span style="color:#16a34a;font-weight:600;">No</span></td>
+            <td>2</td>
+            <td>0</td>
+            <td><strong>9h 00m</strong></td>
+            <td>Senior Software Engineer / IT</td>
+            <td><span style="background:#e5f9ee;color:#16a34a;padding:4px 10px;border-radius:6px;font-weight:700;font-size:11.5px;">Present</span></td>
+            <td class="action-btn-cell">
+              <button class="btn-light-border" onclick="toggleDropdown(this)"><i class="fa fa-ellipsis-v"></i></button>
+              <div class="dropdown-menu">
+                <a href="#" class="dropdown-item"><i class="bi bi-eye text-primary"></i> View Details</a>
+                <a href="#" class="dropdown-item"><i class="bi bi-pencil text-warning"></i> Edit Punch</a>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td><strong>Priya Patel</strong> <span style="font-size:11px;color:#6b7280;">(EMP002)</span></td>
+            <td>Head Office (Noida)</td>
+            <td>Monday</td>
+            <td>07 Sep 2026</td>
+            <td><span style="background:#eaf1ff;color:#2F6FE4;padding:2px 8px;border-radius:4px;font-size:11.5px;font-weight:600;">09:15 AM (In)</span>, <span style="background:#f1f3f5;color:#495057;padding:2px 8px;border-radius:4px;font-size:11.5px;font-weight:600;">06:15 PM (Out)</span></td>
+            <td>2</td>
+            <td>06:15 PM</td>
+            <td><span style="color:#16a34a;font-weight:600;">No</span></td>
+            <td>2</td>
+            <td>0</td>
+            <td><strong>9h 00m</strong></td>
+            <td>HR Manager / HR</td>
+            <td><span style="background:#e5f9ee;color:#16a34a;padding:4px 10px;border-radius:6px;font-weight:700;font-size:11.5px;">Present</span></td>
+            <td class="action-btn-cell">
+              <button class="btn-light-border" onclick="toggleDropdown(this)"><i class="fa fa-ellipsis-v"></i></button>
+              <div class="dropdown-menu">
+                <a href="#" class="dropdown-item"><i class="bi bi-eye text-primary"></i> View Details</a>
+                <a href="#" class="dropdown-item"><i class="bi bi-pencil text-warning"></i> Edit Punch</a>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td><strong>Amit Verma</strong> <span style="font-size:11px;color:#6b7280;">(EMP003)</span></td>
+            <td>Head Office (Noida)</td>
+            <td>Monday</td>
+            <td>07 Sep 2026</td>
+            <td><span style="background:#eaf1ff;color:#2F6FE4;padding:2px 8px;border-radius:4px;font-size:11.5px;font-weight:600;">09:45 AM (In)</span>, <span style="background:#f1f3f5;color:#495057;padding:2px 8px;border-radius:4px;font-size:11.5px;font-weight:600;">06:45 PM (Out)</span></td>
+            <td>2</td>
+            <td>06:45 PM</td>
+            <td><span style="color:#16a34a;font-weight:600;">No</span></td>
+            <td>2</td>
+            <td>0</td>
+            <td><strong>9h 00m</strong></td>
+            <td>Frontend Developer / IT</td>
+            <td><span style="background:#e5f9ee;color:#16a34a;padding:4px 10px;border-radius:6px;font-weight:700;font-size:11.5px;">Present</span></td>
+            <td class="action-btn-cell">
+              <button class="btn-light-border" onclick="toggleDropdown(this)"><i class="fa fa-ellipsis-v"></i></button>
+              <div class="dropdown-menu">
+                <a href="#" class="dropdown-item"><i class="bi bi-eye text-primary"></i> View Details</a>
+                <a href="#" class="dropdown-item"><i class="bi bi-pencil text-warning"></i> Edit Punch</a>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td><strong>Ananya Iyer</strong> <span style="font-size:11px;color:#6b7280;">(EMP004)</span></td>
+            <td>Head Office (Noida)</td>
+            <td>Monday</td>
+            <td>07 Sep 2026</td>
+            <td><span style="background:#eaf1ff;color:#2F6FE4;padding:2px 8px;border-radius:4px;font-size:11.5px;font-weight:600;">10:00 AM (In)</span>, <span style="background:#f1f3f5;color:#495057;padding:2px 8px;border-radius:4px;font-size:11.5px;font-weight:600;">07:00 PM (Out)</span></td>
+            <td>2</td>
+            <td>07:00 PM</td>
+            <td><span style="color:#16a34a;font-weight:600;">No</span></td>
+            <td>2</td>
+            <td>0</td>
+            <td><strong>9h 00m</strong></td>
+            <td>UI/UX Designer / Design</td>
+            <td><span style="background:#e5f9ee;color:#16a34a;padding:4px 10px;border-radius:6px;font-weight:700;font-size:11.5px;">Present</span></td>
+            <td class="action-btn-cell">
+              <button class="btn-light-border" onclick="toggleDropdown(this)"><i class="fa fa-ellipsis-v"></i></button>
+              <div class="dropdown-menu">
+                <a href="#" class="dropdown-item"><i class="bi bi-eye text-primary"></i> View Details</a>
+                <a href="#" class="dropdown-item"><i class="bi bi-pencil text-warning"></i> Edit Punch</a>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td><strong>Vikram Singh</strong> <span style="font-size:11px;color:#6b7280;">(EMP005)</span></td>
+            <td>Head Office (Noida)</td>
+            <td>Monday</td>
+            <td>07 Sep 2026</td>
+            <td><span style="background:#eaf1ff;color:#2F6FE4;padding:2px 8px;border-radius:4px;font-size:11.5px;font-weight:600;">09:00 AM (In)</span>, <span style="background:#f1f3f5;color:#495057;padding:2px 8px;border-radius:4px;font-size:11.5px;font-weight:600;">06:00 PM (Out)</span></td>
+            <td>2</td>
+            <td>06:00 PM</td>
+            <td><span style="color:#16a34a;font-weight:600;">No</span></td>
+            <td>2</td>
+            <td>0</td>
+            <td><strong>9h 00m</strong></td>
+            <td>Project Manager / Operations</td>
+            <td><span style="background:#e5f9ee;color:#16a34a;padding:4px 10px;border-radius:6px;font-weight:700;font-size:11.5px;">Present</span></td>
+            <td class="action-btn-cell">
+              <button class="btn-light-border" onclick="toggleDropdown(this)"><i class="fa fa-ellipsis-v"></i></button>
+              <div class="dropdown-menu">
+                <a href="#" class="dropdown-item"><i class="bi bi-eye text-primary"></i> View Details</a>
+                <a href="#" class="dropdown-item"><i class="bi bi-pencil text-warning"></i> Edit Punch</a>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td><strong>Neha Gupta</strong> <span style="font-size:11px;color:#6b7280;">(EMP006)</span></td>
+            <td>Head Office (Noida)</td>
+            <td>Monday</td>
+            <td>07 Sep 2026</td>
+            <td><span style="background:#eaf1ff;color:#2F6FE4;padding:2px 8px;border-radius:4px;font-size:11.5px;font-weight:600;">09:30 AM (In)</span>, <span style="background:#f1f3f5;color:#495057;padding:2px 8px;border-radius:4px;font-size:11.5px;font-weight:600;">06:30 PM (Out)</span></td>
+            <td>2</td>
+            <td>06:30 PM</td>
+            <td><span style="color:#16a34a;font-weight:600;">No</span></td>
+            <td>2</td>
+            <td>0</td>
+            <td><strong>9h 00m</strong></td>
+            <td>QA Engineer / QA</td>
+            <td><span style="background:#e5f9ee;color:#16a34a;padding:4px 10px;border-radius:6px;font-weight:700;font-size:11.5px;">Present</span></td>
+            <td class="action-btn-cell">
+              <button class="btn-light-border" onclick="toggleDropdown(this)"><i class="fa fa-ellipsis-v"></i></button>
+              <div class="dropdown-menu">
+                <a href="#" class="dropdown-item"><i class="bi bi-eye text-primary"></i> View Details</a>
+                <a href="#" class="dropdown-item"><i class="bi bi-pencil text-warning"></i> Edit Punch</a>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>7</td>
+            <td><strong>Rohan Mehta</strong> <span style="font-size:11px;color:#6b7280;">(EMP007)</span></td>
+            <td>Head Office (Noida)</td>
+            <td>Monday</td>
+            <td>07 Sep 2026</td>
+            <td><span style="background:#eaf1ff;color:#2F6FE4;padding:2px 8px;border-radius:4px;font-size:11.5px;font-weight:600;">09:35 AM (In)</span></td>
+            <td>1</td>
+            <td>09:35 AM</td>
+            <td><span style="color:#ef4444;font-weight:700;">Yes</span></td>
+            <td>1</td>
+            <td>0</td>
+            <td><span style="color:#ef4444;font-weight:600;" title="Cannot compute — check-out punch missing">— </span></td>
+            <td>Backend Developer / IT</td>
+            <td><span style="background:#e5f9ee;color:#16a34a;padding:4px 10px;border-radius:6px;font-weight:700;font-size:11.5px;">Present</span></td>
+            <td class="action-btn-cell">
+              <button class="btn-light-border" onclick="toggleDropdown(this)"><i class="fa fa-ellipsis-v"></i></button>
+              <div class="dropdown-menu">
+                <a href="#" class="dropdown-item"><i class="bi bi-eye text-primary"></i> View Details</a>
+                <a href="#" class="dropdown-item"><i class="bi bi-pencil text-warning"></i> Edit Punch</a>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>8</td>
+            <td><strong>Pooja Deshmukh</strong> <span style="font-size:11px;color:#6b7280;">(EMP008)</span></td>
+            <td>Head Office (Noida)</td>
+            <td>Monday</td>
+            <td>07 Sep 2026</td>
+            <td><span style="color:#9ca3af;">—</span></td>
+            <td>0</td>
+            <td><span style="color:#9ca3af;">—</span></td>
+            <td><span style="color:#16a34a;font-weight:600;">No</span></td>
+            <td>0</td>
+            <td>0</td>
+            <td><span style="color:#9ca3af;">—</span></td>
+            <td>Business Analyst / Operations</td>
+            <td><span style="background:#fdeaea;color:#ef4444;padding:4px 10px;border-radius:6px;font-weight:700;font-size:11.5px;">Absent</span></td>
+            <td class="action-btn-cell">
+              <button class="btn-light-border" onclick="toggleDropdown(this)"><i class="fa fa-ellipsis-v"></i></button>
+              <div class="dropdown-menu">
+                <a href="#" class="dropdown-item"><i class="bi bi-eye text-primary"></i> View Details</a>
+                <a href="#" class="dropdown-item"><i class="bi bi-pencil text-warning"></i> Edit Punch</a>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ╔══════════════════════════════════════════════════════════╗
+     ║  PAGE 5: LEAVE APPLICATION                              ║
+     ╚══════════════════════════════════════════════════════════╝ -->
+<div class="page-section" id="page-leave">
+  <style>
+    /* Leave Application Scoped Styles */
+    #page-leave .lv-card{background:#fff;border:1px solid #e6e8ec;border-radius:8px;margin-bottom:16px;}
+    #page-leave .lv-page-header{
+      display:flex;align-items:center;justify-content:space-between;padding:16px 20px;
+    }
+    #page-leave .lv-page-header h1{font-size:16px;font-weight:700;display:flex;align-items:center;gap:8px;color:#22262f;margin:0;}
+    #page-leave .lv-page-header .crumb{font-size:12px;color:#6b7280;font-weight:400;margin-top:2px;}
+    #page-leave .lv-btn{
+      border:none;border-radius:6px;padding:9px 18px;font-size:13px;font-weight:700;
+      cursor:pointer;display:inline-flex;align-items:center;gap:6px;
+      transition:background .15s ease, transform .05s ease;
+      font-family:inherit;
+    }
+    #page-leave .lv-btn:active{transform:scale(.98);}
+    #page-leave .lv-btn-primary{background:#2F6FE4;color:#fff;}
+    #page-leave .lv-btn-primary:hover{background:#2559c4;}
+    #page-leave .lv-btn-outline{background:#fff;color:#2F6FE4;border:1px solid #2F6FE4;}
+    #page-leave .lv-btn-outline:hover{background:#eaf1ff;}
+
+    #page-leave .lv-filter-row{
+      display:flex;align-items:center;justify-content:space-between;padding:16px 20px;
+      flex-wrap:wrap;gap:12px;
+    }
+    #page-leave .lv-filter-left{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:600;color:#6b7280;}
+    #page-leave .lv-filter-left select{
+      border:1px solid #e6e8ec;border-radius:6px;padding:8px 10px;font-size:13px;color:#22262f;background:#fff;outline:none;
+    }
+    #page-leave .lv-chip{
+      display:flex;align-items:center;gap:6px;border-radius:6px;padding:8px 14px;font-size:12.5px;font-weight:700;
+    }
+    #page-leave .lv-chip-blue{background:#eaf1ff;color:#2F6FE4;}
+    #page-leave .lv-chip-red{background:#fdeceb;color:#d3455b;}
+
+    #page-leave .lv-toolbar{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;flex-wrap:wrap;gap:12px;}
+    #page-leave .lv-toolbar-left{display:flex;align-items:center;gap:12px;}
+    #page-leave .lv-toolbar-left select{border:1px solid #e6e8ec;border-radius:6px;padding:7px 10px;font-size:13px;background:#fff;outline:none;}
+    #page-leave .lv-btn-tool{border:1px solid #e6e8ec;border-radius:6px;padding:7px 14px;font-size:13px;background:#fff;
+      display:inline-flex;align-items:center;gap:6px;cursor:pointer;color:#333;font-family:inherit;}
+    #page-leave .lv-btn-tool.excel{color:#1e8a4c;border-color:#cdeedb;}
+    #page-leave .lv-view-toggle{display:flex;gap:6px;}
+    #page-leave .lv-view-toggle button{border:1px solid #e6e8ec;background:#fff;border-radius:6px;padding:7px 14px;
+      font-size:13px;cursor:pointer;color:#444;display:flex;align-items:center;gap:6px;font-family:inherit;}
+    #page-leave .lv-view-toggle button.active{background:#2F6FE4;color:#fff;border-color:#2F6FE4;}
+
+    /* Raise request panel */
+    #page-leave .lv-raise-panel{
+      max-height:0;overflow:hidden;transition:max-height .35s ease, opacity .3s ease, margin .35s ease;
+      opacity:0;margin:0 20px;
+    }
+    #page-leave .lv-raise-panel.open{max-height:260px;opacity:1;margin:0 20px 16px 20px;}
+    #page-leave .lv-raise-inner{
+      border:1px solid #cfe0ff;background:#fbfcff;border-radius:8px;padding:16px;
+    }
+    #page-leave .lv-raise-inner-header{
+      display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;
+    }
+    #page-leave .lv-raise-inner-header h3{font-size:14px;color:#2F6FE4;display:flex;align-items:center;gap:6px;margin:0;font-weight:700;}
+    #page-leave .lv-raise-inner-header .close-x{cursor:pointer;color:#6b7280;font-size:16px;background:none;border:none;}
+    #page-leave .lv-form-grid{
+      display:grid;grid-template-columns:1fr 1fr 1fr 1.5fr auto;gap:14px;align-items:end;
+    }
+    #page-leave .lv-field label{display:block;font-size:11px;font-weight:700;color:#6b7280;letter-spacing:.3px;margin-bottom:6px;}
+    #page-leave .lv-field label .req{color:#d3455b;}
+    #page-leave .lv-field select, #page-leave .lv-field input{
+      width:100%;border:1px solid #e6e8ec;border-radius:6px;padding:9px 10px;font-size:13px;color:#22262f;background:#fff;outline:none;
+    }
+    #page-leave .lv-field .counter{float:right;font-weight:400;color:#b7bcc6;}
+    #page-leave .lv-submit-btn{white-space:nowrap;height:38px;}
+
+    /* Table section */
+    #page-leave .lv-table-header{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-top:1px solid #e6e8ec;}
+    #page-leave .lv-table-header h3{font-size:14px;font-weight:700;display:flex;align-items:center;gap:8px;margin:0;color:#22262f;}
+    #page-leave .lv-table-search{border:1px solid #e6e8ec;border-radius:6px;padding:7px 12px;font-size:13px;width:220px;outline:none;}
+    #page-leave .lv-table-wrapper{overflow-x:auto;}
+    #page-leave table{width:100%;border-collapse:collapse;font-size:12.5px;min-width:1050px;}
+    #page-leave thead th{
+      text-align:left;color:#6b7280;font-weight:700;font-size:11.5px;letter-spacing:.3px;
+      padding:10px 20px;border-top:1px solid #e6e8ec;border-bottom:1px solid #e6e8ec;
+      white-space:nowrap;
+    }
+    #page-leave tbody td{padding:12px 18px;text-align:left;color:#1f2937;border-bottom:1px solid #e6e8ec;font-size:12.5px;white-space:nowrap;}
+    #page-leave tbody tr:hover{background:#f9fbfe;}
+
+    @media (max-width:900px){
+      #page-leave .lv-form-grid{grid-template-columns:1fr 1fr;}
+    }
+    @media (max-width:600px){
+      #page-leave .lv-form-grid{grid-template-columns:1fr;}
+    }
+  </style>
+
+  <!-- Card 1: Page Header -->
+  <div class="lv-card">
+    <div class="lv-page-header">
+      <div>
+        <h1>📋 Leave Application</h1>
+        <div class="crumb"><a href="#" onclick="showPage('dashboard');return false" style="color:inherit;text-decoration:none;">Dashboard</a></div>
+      </div>
+      <button class="lv-btn lv-btn-primary" id="raiseBtn">
+        <span id="raiseIcon">＋</span> <span id="raiseLabel">Raise Request</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Card 2: Employee Filter -->
+  <div class="lv-card">
+    <div class="lv-filter-row">
+      <div class="lv-filter-left">
+        EMPLOYEE:
+        <select>
+          <option>Select Employee...</option>
+          <option>Rahul Sharma (EMP001)</option>
+          <option>Priya Patel (EMP002)</option>
+          <option>Amit Verma (EMP003)</option>
+          <option>Ananya Iyer (EMP004)</option>
+          <option>Vikram Singh (EMP005)</option>
+          <option>Neha Gupta (EMP006)</option>
+          <option>Rohan Mehta (EMP007)</option>
+          <option>Pooja Deshmukh (EMP008)</option>
+        </select>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <div class="lv-chip lv-chip-blue">📅 12 day(s) balance</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Card 3: Toolbar + Collapsible Raise Panel + Table -->
+  <div class="lv-card">
+    <div class="lv-toolbar">
+      <div class="lv-toolbar-left">
+        <span style="font-size:12px;font-weight:700;color:#6b7280;">SHOW</span>
+        <select>
+          <option>10 rows</option>
+          <option>25 rows</option>
+          <option>50 rows</option>
+        </select>
+        <button class="lv-btn-tool excel">📗 Excel</button>
+        <button class="lv-btn-tool">🔽 Filters</button>
+      </div>
+      <div class="lv-view-toggle">
+        <!-- <button class="active">☰ List</button>
+        <button>📊 Gantt</button>
+        <button>📅 Calendar</button> -->
+      </div>
+    </div>
+
+    <!-- Raise Request Panel (toggled) -->
+    <div class="lv-raise-panel" id="raisePanel">
+      <div class="lv-raise-inner">
+        <div class="lv-raise-inner-header">
+          <h3>➤ Raise Leave Request</h3>
+          <button class="close-x" id="closePanel">✕</button>
+        </div>
+        <div class="lv-form-grid">
+          <div class="lv-field">
+            <label>APPLY FOR</label>
+            <select>
+              <option>Select Employee...</option>
+              <option>Rahul Sharma</option>
+              <option>Priya Patel</option>
+              <option>Amit Verma</option>
+              <option>Ananya Iyer</option>
+              <option>Vikram Singh</option>
+              <option>Neha Gupta</option>
+              <option>Rohan Mehta</option>
+              <option>Pooja Deshmukh</option>
+            </select>
+          </div>
+          <div class="lv-field">
+            <label>FROM DATE <span class="req">*</span></label>
+            <input type="date" id="leaveFromDate">
+          </div>
+          <div class="lv-field">
+            <label>TO DATE <span class="req">*</span></label>
+            <input type="date" id="leaveToDate">
+          </div>
+          <div class="lv-field">
+            <label>REASON <span class="req">*</span> <span class="counter" id="reasonCounter">0 / 500</span></label>
+            <input type="text" id="reasonInput" placeholder="Enter reason for leave..." maxlength="500">
+          </div>
+          <div class="lv-field">
+            <button type="button" class="lv-btn lv-btn-primary lv-submit-btn" onclick="validateLeaveRequest()">➤ Submit</button>
+          </div>
+        </div>
+        <div id="leaveValidationMsg" style="display:none;margin:0 20px 16px;padding:10px 14px;border-radius:6px;font-size:13px;font-weight:600;"></div>
+      </div>
+    </div>
+
+    <div class="lv-table-header">
+      <h3>📋 All Leave Requests</h3>
+      <input class="lv-table-search" type="text" placeholder="Search requests...">
+    </div>
+
+    <div class="lv-table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>S.NO ▲</th><th>EMPLOYEE ▾</th><th>CREATED ON ▾</th><th>CREATED BY ▾</th>
+            <th>LEAVE PERIOD ▾</th><th>PORTION ▾</th><th>DAYS ▾</th><th>REASON ▾</th>
+            <th>STATUS ▾</th><th>DECIDED BY ▾</th><th>ACTION TAKEN ON ▾</th><th>ACTION ▾</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td><strong>Pooja Deshmukh</strong> <span style="font-size:11px;color:#6b7280;">(EMP008)</span></td>
+            <td>06 Sep 2026</td>
+            <td>Pooja Deshmukh</td>
+            <td>07 Sep 2026 - 08 Sep 2026</td>
+            <td>Full Day</td>
+            <td><strong>2</strong></td>
+            <td>Medical emergency at home</td>
+            <td><span style="background:#eaf1ff;color:#2F6FE4;padding:4px 10px;border-radius:6px;font-weight:700;font-size:11.5px;">Pending</span></td>
+            <td>—</td>
+            <td>—</td>
+            <td class="action-btn-cell">
+              <button class="btn-light-border" onclick="toggleDropdown(this)"><i class="fa fa-ellipsis-v"></i></button>
+              <div class="dropdown-menu">
+                <a href="#" class="dropdown-item"><i class="bi bi-eye text-primary"></i> View Request</a>
+                <a href="#" class="dropdown-item"><i class="bi bi-check-circle text-success"></i> Approve</a>
+                <a href="#" class="dropdown-item"><i class="bi bi-x-circle text-danger"></i> Reject</a>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td><strong>Rohan Mehta</strong> <span style="font-size:11px;color:#6b7280;">(EMP007)</span></td>
+            <td>04 Sep 2026</td>
+            <td>Rohan Mehta</td>
+            <td>10 Sep 2026 - 11 Sep 2026</td>
+            <td>Full Day</td>
+            <td><strong>2</strong></td>
+            <td>Attending family wedding in Jaipur</td>
+            <td><span style="background:#e5f9ee;color:#16a34a;padding:4px 10px;border-radius:6px;font-weight:700;font-size:11.5px;">Approved</span></td>
+            <td>Priya Patel</td>
+            <td>05 Sep 2026</td>
+            <td class="action-btn-cell">
+              <button class="btn-light-border" onclick="toggleDropdown(this)"><i class="fa fa-ellipsis-v"></i></button>
+              <div class="dropdown-menu">
+                <a href="#" class="dropdown-item"><i class="bi bi-eye text-primary"></i> View Request</a>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td><strong>Amit Verma</strong> <span style="font-size:11px;color:#6b7280;">(EMP003)</span></td>
+            <td>01 Sep 2026</td>
+            <td>Amit Verma</td>
+            <td>03 Sep 2026</td>
+            <td>First Half</td>
+            <td><strong>0.5</strong></td>
+            <td>Personal work at bank</td>
+            <td><span style="background:#e5f9ee;color:#16a34a;padding:4px 10px;border-radius:6px;font-weight:700;font-size:11.5px;">Approved</span></td>
+            <td>Vikram Singh</td>
+            <td>01 Sep 2026</td>
+            <td class="action-btn-cell">
+              <button class="btn-light-border" onclick="toggleDropdown(this)"><i class="fa fa-ellipsis-v"></i></button>
+              <div class="dropdown-menu">
+                <a href="#" class="dropdown-item"><i class="bi bi-eye text-primary"></i> View Request</a>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td><strong>Neha Gupta</strong> <span style="font-size:11px;color:#6b7280;">(EMP006)</span></td>
+            <td>28 Aug 2026</td>
+            <td>Neha Gupta</td>
+            <td>29 Aug 2026</td>
+            <td>Full Day</td>
+            <td><strong>1</strong></td>
+            <td>Severe headache & viral fever</td>
+            <td><span style="background:#e5f9ee;color:#16a34a;padding:4px 10px;border-radius:6px;font-weight:700;font-size:11.5px;">Approved</span></td>
+            <td>Priya Patel</td>
+            <td>28 Aug 2026</td>
+            <td class="action-btn-cell">
+              <button class="btn-light-border" onclick="toggleDropdown(this)"><i class="fa fa-ellipsis-v"></i></button>
+              <div class="dropdown-menu">
+                <a href="#" class="dropdown-item"><i class="bi bi-eye text-primary"></i> View Request</a>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td><strong>Ananya Iyer</strong> <span style="font-size:11px;color:#6b7280;">(EMP004)</span></td>
+            <td>25 Aug 2026</td>
+            <td>Ananya Iyer</td>
+            <td>26 Aug 2026 - 27 Aug 2026</td>
+            <td>Full Day</td>
+            <td><strong>2</strong></td>
+            <td>Travel out of station</td>
+            <td><span style="background:#fdeaea;color:#ef4444;padding:4px 10px;border-radius:6px;font-weight:700;font-size:11.5px;">Rejected</span></td>
+            <td>Rahul Sharma</td>
+            <td>25 Aug 2026</td>
+            <td class="action-btn-cell">
+              <button class="btn-light-border" onclick="toggleDropdown(this)"><i class="fa fa-ellipsis-v"></i></button>
+              <div class="dropdown-menu">
+                <a href="#" class="dropdown-item"><i class="bi bi-eye text-primary"></i> View Request</a>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td><strong>Rahul Sharma</strong> <span style="font-size:11px;color:#6b7280;">(EMP001)</span></td>
+            <td>18 Aug 2026</td>
+            <td>Rahul Sharma</td>
+            <td>20 Aug 2026 - 21 Aug 2026</td>
+            <td>Full Day</td>
+            <td><strong>2</strong></td>
+            <td>Festival celebration with family</td>
+            <td><span style="background:#e5f9ee;color:#16a34a;padding:4px 10px;border-radius:6px;font-weight:700;font-size:11.5px;">Approved</span></td>
+            <td>Priya Patel</td>
+            <td>18 Aug 2026</td>
+            <td class="action-btn-cell">
+              <button class="btn-light-border" onclick="toggleDropdown(this)"><i class="fa fa-ellipsis-v"></i></button>
+              <div class="dropdown-menu">
+                <a href="#" class="dropdown-item"><i class="bi bi-eye text-primary"></i> View Request</a>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="page-section" id="page-payroll">
+  <style>
+    #page-payroll .pr-card{background:#fff;border-radius:12px;box-shadow:0 1px 2px rgba(16,24,40,0.04);}
+    #page-payroll .pr-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;padding:18px 22px;margin-bottom:16px;}
+    #page-payroll .pr-header h1{margin:0 0 6px;font-size:19px;font-weight:700;display:flex;align-items:center;gap:10px;color:#1f2937;}
+    #page-payroll .pr-header h1 i{color:#3b6fe0;font-size:17px;}
+    #page-payroll .pr-breadcrumb{font-size:12.5px;color:#6b7280;}
+    #page-payroll .pr-breadcrumb b{color:#1f2937;font-weight:700;}
+    #page-payroll .pr-actions{display:flex;gap:12px;flex-wrap:wrap;}
+    #page-payroll .pr-btn{display:flex;align-items:center;gap:8px;padding:10px 18px;border-radius:8px;border:none;cursor:pointer;font-size:13px;font-weight:700;white-space:nowrap;font-family:inherit;}
+    #page-payroll .pr-btn-primary{background:#3b6fe0;color:#fff;}
+    #page-payroll .pr-btn-primary:hover{background:#2f5bc4;}
+    #page-payroll .pr-btn-outline-green{background:#fff;border:1px solid #16a34a;color:#16a34a;}
+    #page-payroll .pr-btn-outline-green:hover{background:#f0fbf4;}
+    #page-payroll .pr-btn-outline-blue{background:#fff;border:1px solid #3b6fe0;color:#3b6fe0;}
+    #page-payroll .pr-btn-outline-blue:hover{background:#f2f6ff;}
+    #page-payroll .pr-controls{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:14px 20px;margin-bottom:16px;}
+    #page-payroll .pr-show{display:flex;align-items:center;gap:10px;font-size:12.5px;font-weight:700;color:#6b7280;}
+    #page-payroll .pr-show select{padding:8px 30px 8px 12px;border:1px solid #e6e9ee;border-radius:8px;font-size:13px;font-weight:600;color:#1f2937;background:#fff;appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6'><path d='M0 0l5 6 5-6z' fill='%236b7280'/></svg>");background-repeat:no-repeat;background-position:right 12px center;}
+    #page-payroll .pr-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:16px;}
+    #page-payroll .pr-stat{padding:18px;display:flex;align-items:flex-start;justify-content:space-between;}
+    #page-payroll .pr-stat-label{font-size:12px;color:#6b7280;font-weight:600;margin-bottom:10px;}
+    #page-payroll .pr-stat-value{font-size:22px;font-weight:700;}
+    #page-payroll .pr-stat-icon{width:38px;height:38px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:15px;}
+    #page-payroll .icon-blue{background:#e7f0ff;color:#3b6fe0;}
+    #page-payroll .icon-green{background:#e5f9ee;color:#16a34a;}
+    #page-payroll .icon-red{background:#fdeaea;color:#ef4444;}
+    #page-payroll .icon-yellow{background:#fff4e0;color:#f5a524;}
+    #page-payroll .v-dark{color:#1f2937;}
+    #page-payroll .v-green{color:#16a34a;}
+    #page-payroll .pr-table-card{padding:20px 22px;}
+    #page-payroll .pr-table-scroll{overflow-x:auto;}
+    #page-payroll .pr-table{width:100%;border-collapse:collapse;min-width:1150px;}
+    #page-payroll .pr-table thead th{background:#f8f9fb;text-align:left;padding:12px 14px;font-size:11px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.3px;border-top:1px solid #e6e9ee;border-bottom:1px solid #e6e9ee;white-space:nowrap;}
+    #page-payroll .pr-table tbody td{padding:12px 14px;font-size:12.5px;color:#1f2937;border-bottom:1px solid #e6e9ee;white-space:nowrap;}
+    #page-payroll .pr-table tbody tr:hover{background:#f9fbfe;}
+    @media (max-width:1100px){#page-payroll .pr-stats{grid-template-columns:repeat(2,1fr);}}
+  </style>
+
+  <!-- Header Card -->
+  <div class="pr-card pr-header">
+    <div>
+      <h1><i class="fa-solid fa-money-check-dollar"></i> Payroll</h1>
+      <div class="pr-breadcrumb">Dashboard / <b>Payroll</b> / Payroll List</div>
+    </div>
+    <div class="pr-actions">
+      <button class="pr-btn pr-btn-primary"><i class="fa-solid fa-play"></i> Run Payroll</button>
+    </div>
+  </div>
+
+  <!-- Controls Row -->
+  <div class="pr-card pr-controls">
+    <div class="pr-show">
+      <span>SHOW</span>
+      <select>
+        <option>10 rows</option>
+        <option>25 rows</option>
+        <option>50 rows</option>
+      </select>
+    </div>
+    <button class="pr-btn pr-btn-outline-green"><i class="fa-solid fa-file-excel"></i> Excel</button>
+    <button class="pr-btn pr-btn-outline-blue"><i class="fa-solid fa-filter"></i> Filters</button>
+  </div>
+
+  <!-- Stats Grid -->
+  <div class="pr-stats">
+    <div class="pr-card pr-stat"><div><div class="pr-stat-label">Total Gross Pay</div><div class="pr-stat-value v-dark">$60,100</div></div><div class="pr-stat-icon icon-blue"><i class="fa-solid fa-sack-dollar"></i></div></div>
+    <div class="pr-card pr-stat"><div><div class="pr-stat-label">Total Deductions</div><div class="pr-stat-value v-dark">$12,020</div></div><div class="pr-stat-icon icon-red"><i class="fa-solid fa-minus"></i></div></div>
+    <div class="pr-card pr-stat"><div><div class="pr-stat-label">Total Net Pay</div><div class="pr-stat-value v-green">$48,080</div></div><div class="pr-stat-icon icon-green"><i class="fa-solid fa-wallet"></i></div></div>
+    <div class="pr-card pr-stat"><div><div class="pr-stat-label">Pending</div><div class="pr-stat-value v-dark">2</div></div><div class="pr-stat-icon icon-yellow"><i class="fa-solid fa-hourglass-half"></i></div></div>
+  </div>
+
+  <!-- Table -->
+  <div class="pr-card pr-table-card">
+    <div class="pr-table-scroll">
+      <table class="pr-table">
+        <thead><tr><th>#</th><th>Employee</th><th>Designation</th><th>Pay Period</th><th>Gross Pay</th><th>Deductions</th><th>Net Pay</th><th>Status</th><th>Payslip</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td><strong>Rahul Sharma</strong> <span style="font-size:11px;color:#6b7280;">(EMP001)</span></td><td>Senior Software Engineer</td><td>Sep 2026</td><td>$9,200</td><td>$1,840</td><td><strong>$7,360</strong></td><td><span class="badge bg-success-subtle border-success-subtle"><i class="bi bi-check-circle-fill"></i> Processed</span></td><td><button class="pr-btn pr-btn-outline-blue" style="padding:6px 10px;"><i class="fa-solid fa-download"></i></button></td></tr>
+          <tr><td>2</td><td><strong>Priya Patel</strong> <span style="font-size:11px;color:#6b7280;">(EMP002)</span></td><td>HR Manager</td><td>Sep 2026</td><td>$8,500</td><td>$1,700</td><td><strong>$6,800</strong></td><td><span class="badge bg-success-subtle border-success-subtle"><i class="bi bi-check-circle-fill"></i> Processed</span></td><td><button class="pr-btn pr-btn-outline-blue" style="padding:6px 10px;"><i class="fa-solid fa-download"></i></button></td></tr>
+          <tr><td>3</td><td><strong>Amit Verma</strong> <span style="font-size:11px;color:#6b7280;">(EMP003)</span></td><td>Frontend Developer</td><td>Sep 2026</td><td>$6,800</td><td>$1,360</td><td><strong>$5,440</strong></td><td><span class="badge bg-success-subtle border-success-subtle"><i class="bi bi-check-circle-fill"></i> Processed</span></td><td><button class="pr-btn pr-btn-outline-blue" style="padding:6px 10px;"><i class="fa-solid fa-download"></i></button></td></tr>
+          <tr><td>4</td><td><strong>Ananya Iyer</strong> <span style="font-size:11px;color:#6b7280;">(EMP004)</span></td><td>UI/UX Designer</td><td>Sep 2026</td><td>$6,500</td><td>$1,300</td><td><strong>$5,200</strong></td><td><span class="badge bg-success-subtle border-success-subtle"><i class="bi bi-check-circle-fill"></i> Processed</span></td><td><button class="pr-btn pr-btn-outline-blue" style="padding:6px 10px;"><i class="fa-solid fa-download"></i></button></td></tr>
+          <tr><td>5</td><td><strong>Vikram Singh</strong> <span style="font-size:11px;color:#6b7280;">(EMP005)</span></td><td>Project Manager</td><td>Sep 2026</td><td>$8,900</td><td>$1,780</td><td><strong>$7,120</strong></td><td><span class="badge bg-success-subtle border-success-subtle"><i class="bi bi-check-circle-fill"></i> Processed</span></td><td><button class="pr-btn pr-btn-outline-blue" style="padding:6px 10px;"><i class="fa-solid fa-download"></i></button></td></tr>
+          <tr><td>6</td><td><strong>Neha Gupta</strong> <span style="font-size:11px;color:#6b7280;">(EMP006)</span></td><td>QA Engineer</td><td>Sep 2026</td><td>$6,200</td><td>$1,240</td><td><strong>$4,960</strong></td><td><span class="badge bg-warning-subtle"><i class="bi bi-hourglass-split"></i> Pending</span></td><td><button class="pr-btn pr-btn-outline-blue" style="padding:6px 10px;" disabled><i class="fa-solid fa-download"></i></button></td></tr>
+          <tr><td>7</td><td><strong>Rohan Mehta</strong> <span style="font-size:11px;color:#6b7280;">(EMP007)</span></td><td>Backend Developer</td><td>Sep 2026</td><td>$7,100</td><td>$1,420</td><td><strong>$5,680</strong></td><td><span class="badge bg-warning-subtle"><i class="bi bi-hourglass-split"></i> Pending</span></td><td><button class="pr-btn pr-btn-outline-blue" style="padding:6px 10px;" disabled><i class="fa-solid fa-download"></i></button></td></tr>
+          <tr><td>8</td><td><strong>Pooja Deshmukh</strong> <span style="font-size:11px;color:#6b7280;">(EMP008)</span></td><td>Business Analyst</td><td>Sep 2026</td><td>$6,900</td><td>$1,380</td><td><strong>$5,520</strong></td><td><span class="badge bg-success-subtle border-success-subtle"><i class="bi bi-check-circle-fill"></i> Processed</span></td><td><button class="pr-btn pr-btn-outline-blue" style="padding:6px 10px;"><i class="fa-solid fa-download"></i></button></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="page-section" id="page-performance">
+  <style>
+    #page-performance .pf-card{background:#fff;border-radius:12px;box-shadow:0 1px 2px rgba(16,24,40,0.04);}
+    #page-performance .pf-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;padding:18px 22px;margin-bottom:16px;}
+    #page-performance .pf-header h1{margin:0 0 6px;font-size:19px;font-weight:700;display:flex;align-items:center;gap:10px;color:#1f2937;}
+    #page-performance .pf-header h1 i{color:#3b6fe0;font-size:17px;}
+    #page-performance .pf-breadcrumb{font-size:12.5px;color:#6b7280;}
+    #page-performance .pf-breadcrumb b{color:#1f2937;font-weight:700;}
+    #page-performance .pf-actions{display:flex;gap:12px;flex-wrap:wrap;}
+    #page-performance .pf-btn{display:flex;align-items:center;gap:8px;padding:10px 18px;border-radius:8px;border:none;cursor:pointer;font-size:13px;font-weight:700;white-space:nowrap;font-family:inherit;}
+    #page-performance .pf-btn-primary{background:#3b6fe0;color:#fff;}
+    #page-performance .pf-btn-primary:hover{background:#2f5bc4;}
+    #page-performance .pf-btn-outline-green{background:#fff;border:1px solid #16a34a;color:#16a34a;}
+    #page-performance .pf-btn-outline-green:hover{background:#f0fbf4;}
+    #page-performance .pf-btn-outline-blue{background:#fff;border:1px solid #3b6fe0;color:#3b6fe0;}
+    #page-performance .pf-btn-outline-blue:hover{background:#f2f6ff;}
+    #page-performance .pf-controls{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:14px 20px;margin-bottom:16px;}
+    #page-performance .pf-show{display:flex;align-items:center;gap:10px;font-size:12.5px;font-weight:700;color:#6b7280;}
+    #page-performance .pf-show select{padding:8px 30px 8px 12px;border:1px solid #e6e9ee;border-radius:8px;font-size:13px;font-weight:600;color:#1f2937;background:#fff;appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6'><path d='M0 0l5 6 5-6z' fill='%236b7280'/></svg>");background-repeat:no-repeat;background-position:right 12px center;}
+    #page-performance .pf-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:16px;}
+    #page-performance .pf-stat{padding:18px;display:flex;align-items:flex-start;justify-content:space-between;}
+    #page-performance .pf-stat-label{font-size:12px;color:#6b7280;font-weight:600;margin-bottom:10px;}
+    #page-performance .pf-stat-value{font-size:22px;font-weight:700;}
+    #page-performance .pf-stat-icon{width:38px;height:38px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:15px;}
+    #page-performance .icon-blue{background:#e7f0ff;color:#3b6fe0;}
+    #page-performance .icon-green{background:#e5f9ee;color:#16a34a;}
+    #page-performance .icon-red{background:#fdeaea;color:#ef4444;}
+    #page-performance .icon-cyan{background:#e3f7fb;color:#17a2c9;}
+    #page-performance .v-dark{color:#1f2937;}
+    #page-performance .pf-table-card{padding:20px 22px;}
+    #page-performance .pf-table-scroll{overflow-x:auto;}
+    #page-performance .pf-table{width:100%;border-collapse:collapse;min-width:1150px;}
+    #page-performance .pf-table thead th{background:#f8f9fb;text-align:left;padding:12px 14px;font-size:11px;font-weight:700;color:#6b7280;text-transform:uppercase;letter-spacing:.3px;border-top:1px solid #e6e9ee;border-bottom:1px solid #e6e9ee;white-space:nowrap;}
+    #page-performance .pf-table tbody td{padding:12px 14px;font-size:12.5px;color:#1f2937;border-bottom:1px solid #e6e9ee;white-space:nowrap;}
+    #page-performance .pf-table tbody tr:hover{background:#f9fbfe;}
+    @media (max-width:1100px){#page-performance .pf-stats{grid-template-columns:repeat(2,1fr);}}
+  </style>
+
+  <!-- Header Card -->
+  <div class="pf-card pf-header">
+    <div>
+      <h1><i class="fa-solid fa-chart-line"></i> Performance</h1>
+      <div class="pf-breadcrumb">Dashboard / <b>Performance</b> / Review List</div>
+    </div>
+    <div class="pf-actions">
+      <button class="pf-btn pf-btn-primary"><i class="fa-solid fa-calendar-plus"></i> Schedule Review</button>
+    </div>
+  </div>
+
+  <!-- Controls Row -->
+  <div class="pf-card pf-controls">
+    <div class="pf-show">
+      <span>SHOW</span>
+      <select>
+        <option>10 rows</option>
+        <option>25 rows</option>
+        <option>50 rows</option>
+      </select>
+    </div>
+    <button class="pf-btn pf-btn-outline-green"><i class="fa-solid fa-file-excel"></i> Excel</button>
+    <button class="pf-btn pf-btn-outline-blue"><i class="fa-solid fa-filter"></i> Filters</button>
+  </div>
+
+  <!-- Stats Grid -->
+  <div class="pf-stats">
+    <div class="pf-card pf-stat"><div><div class="pf-stat-label">Total Employees</div><div class="pf-stat-value v-dark">8</div></div><div class="pf-stat-icon icon-blue"><i class="fa-solid fa-users"></i></div></div>
+    <div class="pf-card pf-stat"><div><div class="pf-stat-label">Reviews Completed</div><div class="pf-stat-value v-dark">4</div></div><div class="pf-stat-icon icon-green"><i class="fa-solid fa-circle-check"></i></div></div>
+    <div class="pf-card pf-stat"><div><div class="pf-stat-label">Reviews Scheduled</div><div class="pf-stat-value v-dark">3</div></div><div class="pf-stat-icon icon-cyan"><i class="fa-solid fa-calendar-days"></i></div></div>
+    <div class="pf-card pf-stat"><div><div class="pf-stat-label">Reviews Overdue</div><div class="pf-stat-value v-dark">1</div></div><div class="pf-stat-icon icon-red"><i class="fa-solid fa-triangle-exclamation"></i></div></div>
+  </div>
+
+  <!-- Table -->
+  <div class="pf-card pf-table-card">
+    <div class="pf-table-scroll">
+      <table class="pf-table">
+        <thead><tr><th>#</th><th>Employee</th><th>Designation</th><th>Review Cycle</th><th>Reviewer</th><th>Rating</th><th>Status</th><th>Next Review</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td><strong>Rahul Sharma</strong> <span style="font-size:11px;color:#6b7280;">(EMP001)</span></td><td>Senior Software Engineer</td><td>Annual Review</td><td>Priya Patel</td><td>4.5 / 5</td><td><span class="badge bg-success-subtle border-success-subtle"><i class="bi bi-check-circle-fill"></i> Completed</span></td><td>Mar 2027</td></tr>
+          <tr><td>2</td><td><strong>Priya Patel</strong> <span style="font-size:11px;color:#6b7280;">(EMP002)</span></td><td>HR Manager</td><td>Annual Review</td><td>Rahul Sharma</td><td>4.7 / 5</td><td><span class="badge bg-success-subtle border-success-subtle"><i class="bi bi-check-circle-fill"></i> Completed</span></td><td>Mar 2027</td></tr>
+          <tr><td>3</td><td><strong>Amit Verma</strong> <span style="font-size:11px;color:#6b7280;">(EMP003)</span></td><td>Frontend Developer</td><td>Mid-Year Review</td><td>Vikram Singh</td><td>—</td><td><span class="badge bg-primary-subtle border-primary-subtle"><i class="bi bi-calendar-event"></i> Scheduled</span></td><td>25 Sep 2026</td></tr>
+          <tr><td>4</td><td><strong>Ananya Iyer</strong> <span style="font-size:11px;color:#6b7280;">(EMP004)</span></td><td>UI/UX Designer</td><td>Mid-Year Review</td><td>Vikram Singh</td><td>4.1 / 5</td><td><span class="badge bg-success-subtle border-success-subtle"><i class="bi bi-check-circle-fill"></i> Completed</span></td><td>Mar 2027</td></tr>
+          <tr><td>5</td><td><strong>Vikram Singh</strong> <span style="font-size:11px;color:#6b7280;">(EMP005)</span></td><td>Project Manager</td><td>Annual Review</td><td>Rahul Sharma</td><td>—</td><td><span class="badge bg-primary-subtle border-primary-subtle"><i class="bi bi-calendar-event"></i> Scheduled</span></td><td>28 Sep 2026</td></tr>
+          <tr><td>6</td><td><strong>Neha Gupta</strong> <span style="font-size:11px;color:#6b7280;">(EMP006)</span></td><td>QA Engineer</td><td>Mid-Year Review</td><td>Vikram Singh</td><td>—</td><td><span class="badge bg-danger-subtle border-danger-subtle text-danger"><i class="bi bi-exclamation-circle-fill"></i> Overdue</span></td><td>10 Sep 2026</td></tr>
+          <tr><td>7</td><td><strong>Rohan Mehta</strong> <span style="font-size:11px;color:#6b7280;">(EMP007)</span></td><td>Backend Developer</td><td>Mid-Year Review</td><td>Vikram Singh</td><td>3.8 / 5</td><td><span class="badge bg-success-subtle border-success-subtle"><i class="bi bi-check-circle-fill"></i> Completed</span></td><td>Mar 2027</td></tr>
+          <tr><td>8</td><td><strong>Pooja Deshmukh</strong> <span style="font-size:11px;color:#6b7280;">(EMP008)</span></td><td>Business Analyst</td><td>Annual Review</td><td>Priya Patel</td><td>—</td><td><span class="badge bg-primary-subtle border-primary-subtle"><i class="bi bi-calendar-event"></i> Scheduled</span></td><td>30 Sep 2026</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+</main>
+
+<!-- ════════════════════════════════════════════════════════════
+     JAVASCRIPT
+════════════════════════════════════════════════════════════ -->
+<script>
+// ── Page Switching ──
+function showPage(page) {
+    document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active-page'));
+    document.getElementById('page-' + page).classList.add('active-page');
+
+    // Update sidebar active
+    document.querySelectorAll('.sidebar-nav > .nav-item > .nav-link').forEach(l => l.classList.remove('active'));
+    if (page === 'dashboard') document.getElementById('sidebarDashboard').classList.add('active');
+    else if (page === 'employees' || page === 'create') document.getElementById('sidebarEmployees').classList.add('active');
+    else if (page === 'attendance') document.getElementById('sidebarAttendance').classList.add('active');
+    else if (page === 'leave') { document.getElementById('sidebarLeave').classList.add('active'); var lp = document.getElementById('sidebarLeave').closest('.has-submenu'); if(lp && !lp.classList.contains('open')){ lp.classList.add('open'); lp.querySelector('.nav-submenu').style.maxHeight = lp.querySelector('.nav-submenu').scrollHeight + 'px'; } }
+    else if (page === 'payroll') document.getElementById('sidebarPayroll').classList.add('active');
+    else if (page === 'performance') document.getElementById('sidebarPerformance').classList.add('active');
+
+    window.scrollTo(0, 0);
+}
+
+// ── Dropdown Toggles (Tables) ──
+function toggleDropdown(btn) {
+    // close all others
+    document.querySelectorAll('.dropdown-menu.show').forEach(m => {
+        if(m !== btn.nextElementSibling) m.classList.remove('show');
+    });
+    btn.nextElementSibling.classList.toggle('show');
+}
+// Close dropdowns when clicking outside
+document.addEventListener('click', function(e) {
+    if (!e.target.closest('.action-btn-cell')) {
+        document.querySelectorAll('.dropdown-menu.show').forEach(m => m.classList.remove('show'));
+    }
+});
+
+// ── Tab Switching (Create Form) ──
+function switchFormTab(tabId, btnElement) {
+    if(btnElement.disabled || btnElement.classList.contains('tab-locked')) return;
+    
+    document.querySelectorAll('.form-tab').forEach(b => b.classList.remove('active'));
+    btnElement.classList.add('active');
+    
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active-tab'));
+    document.getElementById('form-' + tabId).classList.add('active-tab');
+}
+
+// ── Sidebar Toggle ──
+document.getElementById('toggleSidebar').addEventListener('click', function() {
+    document.body.classList.toggle('sidebar-collapsed');
+});
+
+// ── Submenu Toggle ──
+function toggleSubmenu(el, event) {
+    event.preventDefault();
+    var parent = el.closest('.has-submenu');
+    var sub = parent.querySelector('.nav-submenu');
+    var isOpen = parent.classList.contains('open');
+    document.querySelectorAll('.has-submenu.open').forEach(function(item) {
+        if (item !== parent) { item.classList.remove('open'); item.querySelector('.nav-submenu').style.maxHeight = '0'; }
+    });
+    if (isOpen) { parent.classList.remove('open'); sub.style.maxHeight = '0'; }
+    else { parent.classList.add('open'); sub.style.maxHeight = sub.scrollHeight + 'px'; }
+}
+
+// ── Leave Application Raise Request Toggle ──
+var raiseBtn = document.getElementById('raiseBtn');
+var raisePanel = document.getElementById('raisePanel');
+var raiseIcon = document.getElementById('raiseIcon');
+var raiseLabel = document.getElementById('raiseLabel');
+var closePanel = document.getElementById('closePanel');
+var reasonInput = document.getElementById('reasonInput');
+var reasonCounter = document.getElementById('reasonCounter');
+
+function toggleLeavePanel(){
+    if(!raisePanel) return;
+    var isOpen = raisePanel.classList.toggle('open');
+    if(raiseIcon) raiseIcon.textContent = isOpen ? '−' : '＋';
+    if(raiseLabel) raiseLabel.textContent = isOpen ? 'Close' : 'Raise Request';
+    if(isOpen){ raisePanel.scrollIntoView({behavior:'smooth', block:'nearest'}); }
+}
+
+if(raiseBtn) raiseBtn.addEventListener('click', toggleLeavePanel);
+if(closePanel) closePanel.addEventListener('click', toggleLeavePanel);
+
+if(reasonInput && reasonCounter){
+    reasonInput.addEventListener('input', function(){
+        reasonCounter.textContent = this.value.length + ' / 500';
+    });
+}
+
+
+// ── Education Tab Dynamic Rows ──
+function addEducationRow() {
+    var tbody = document.getElementById('educationTableBody');
+    if (!tbody) return;
+    var row = document.createElement('tr');
+    row.className = 'edu-row';
+    row.style.borderBottom = '1px solid #f1f5f9';
+    row.innerHTML = `
+        <td style="padding:10px 8px;">
+            <input type="text" class="form-control form-control-sm" placeholder="e.g. B.Tech / MBA / BCA" style="border-radius:6px;font-size:12.5px;border-color:#cbd5e1;">
+        </td>
+        <td style="padding:10px 8px;">
+            <select class="form-select form-select-sm" style="border-radius:6px;font-size:12.5px;border-color:#cbd5e1;">
+                <option value="">Select Type</option>
+                <option>Full Time</option>
+                <option>Part Time</option>
+                <option>Distance</option>
+                <option>Diploma</option>
+                <option>Certification</option>
+            </select>
+        </td>
+        <td style="padding:10px 8px;">
+            <select class="form-select form-select-sm" style="border-radius:6px;font-size:12.5px;border-color:#cbd5e1;">
+                <option value="">Select Year</option>
+                <option>2026</option>
+                <option>2025</option>
+                <option>2024</option>
+                <option>2023</option>
+                <option>2022</option>
+                <option>2021</option>
+                <option>2020</option>
+                <option>2019</option>
+                <option>2018</option>
+                <option>2017</option>
+                <option>2016</option>
+                <option>2015</option>
+            </select>
+        </td>
+        <td style="padding:10px 8px;">
+            <input type="text" class="form-control form-control-sm" placeholder="University / College Name" style="border-radius:6px;font-size:12.5px;border-color:#cbd5e1;">
+        </td>
+        <td style="padding:10px 8px;">
+            <input type="text" class="form-control form-control-sm" placeholder="e.g. Computer Science" style="border-radius:6px;font-size:12.5px;border-color:#cbd5e1;">
+        </td>
+        <td style="padding:10px 8px;">
+            <input type="text" class="form-control form-control-sm" placeholder="0.00 - 100" style="border-radius:6px;font-size:12.5px;border-color:#cbd5e1;">
+        </td>
+        <td style="padding:10px 8px;">
+            <input type="file" class="form-control form-control-sm" style="border-radius:6px;font-size:11px;border-color:#cbd5e1;">
+        </td>
+        <td style="padding:10px 8px;">
+            <textarea class="form-control form-control-sm" rows="1" placeholder="Add remarks..." style="border-radius:6px;font-size:12px;resize:none;border-color:#cbd5e1;"></textarea>
+        </td>
+        <td style="padding:10px 8px;text-align:center;white-space:nowrap;">
+            <button type="button" class="btn-table-action-add" onclick="addEducationRow()" title="Add Row"><i class="bi bi-plus-lg"></i></button>
+            <button type="button" class="btn-table-action-delete" onclick="removeEducationRow(this)" title="Delete Row"><i class="bi bi-trash"></i></button>
+        </td>
+    `;
+    tbody.appendChild(row);
+}
+
+function removeEducationRow(btn) {
+    var tbody = document.getElementById('educationTableBody');
+    if (!tbody) return;
+    var rows = tbody.querySelectorAll('.edu-row');
+    if (rows.length > 1) {
+        btn.closest('tr').remove();
+    } else {
+        alert('At least one row is required.');
+    }
+}
+
+function clockAction(type) {
+    var inBtn = document.getElementById('clockInBtn');
+    var outBtn = document.getElementById('clockOutBtn');
+    var statusText = document.getElementById('clockStatusText');
+    var now = new Date();
+    var timeStr = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+
+    if (type === 'in') {
+        statusText.textContent = 'Clocked in at ' + timeStr + '. Location captured.';
+        inBtn.disabled = true;
+        inBtn.style.opacity = '.5';
+        inBtn.style.cursor = 'not-allowed';
+        outBtn.disabled = false;
+        outBtn.style.opacity = '1';
+        outBtn.style.cursor = 'pointer';
+    } else {
+        statusText.textContent = 'Clocked out at ' + timeStr + '. Location captured.';
+        outBtn.disabled = true;
+        outBtn.style.opacity = '.5';
+        outBtn.style.cursor = 'not-allowed';
+        inBtn.disabled = false;
+        inBtn.style.opacity = '1';
+        inBtn.style.cursor = 'pointer';
+    }
+}
+
+function validateLeaveRequest() {
+    var fromInput = document.getElementById('leaveFromDate');
+    var toInput = document.getElementById('leaveToDate');
+    var msg = document.getElementById('leaveValidationMsg');
+    var LEAVE_BALANCE = 12;
+    var PUBLIC_HOLIDAYS = ['2026-10-02', '2026-10-20']; // Gandhi Jayanti, Dussehra — matches Upcoming Holidays panel
+
+    if (!fromInput.value || !toInput.value) {
+        msg.style.background = '#fdeceb'; msg.style.color = '#d3455b';
+        msg.textContent = '⚠ Please select both From and To dates.';
+        msg.style.display = 'block';
+        return;
+    }
+
+    var from = new Date(fromInput.value);
+    var to = new Date(toInput.value);
+    var days = Math.round((to - from) / (1000 * 60 * 60 * 24)) + 1;
+
+    if (days <= 0) {
+        msg.style.background = '#fdeceb'; msg.style.color = '#d3455b';
+        msg.textContent = '⚠ To Date must be on or after From Date.';
+        msg.style.display = 'block';
+        return;
+    }
+
+    var holidayHit = PUBLIC_HOLIDAYS.some(function(h) {
+        var hd = new Date(h);
+        return hd >= from && hd <= to;
+    });
+
+    if (days > LEAVE_BALANCE) {
+        msg.style.background = '#fdeceb'; msg.style.color = '#d3455b';
+        msg.textContent = '⚠ This request is for ' + days + ' day(s), which exceeds the available balance of ' + LEAVE_BALANCE + ' day(s).';
+        msg.style.display = 'block';
+    } else if (holidayHit) {
+        msg.style.background = '#fff8e6'; msg.style.color = '#b8860b';
+        msg.textContent = '⚠ The selected dates overlap a public holiday. Please confirm before submitting.';
+        msg.style.display = 'block';
+    } else {
+        msg.style.background = '#e5f9ee'; msg.style.color = '#16a34a';
+        msg.textContent = '✓ ' + days + ' day(s) requested — within balance and no public holiday conflict.';
+        msg.style.display = 'block';
+    }
+}
+
+function generateReport() {
+    var type = document.getElementById('reportType').value;
+    var from = document.getElementById('reportFrom').value;
+    var to = document.getElementById('reportTo').value;
+    var result = document.getElementById('reportResult');
+    if (!from || !to) {
+        result.style.background = '#fdeceb';
+        result.style.color = '#d3455b';
+        result.textContent = 'Please select both a From and To date before generating the report.';
+        result.style.display = 'block';
+        return;
+    }
+    result.style.background = '#eaf1ff';
+    result.style.color = '#1d6ae5';
+    result.textContent = '✓ ' + type + ' report generated for ' + from + ' to ' + to + '.';
+    result.style.display = 'block';
+}
+
+</script>
+</body>
+</html>
