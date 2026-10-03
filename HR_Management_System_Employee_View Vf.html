@@ -700,7 +700,6 @@ input[type="file"].form-control::file-selector-button:hover{background:linear-gr
         <thead>
           <tr>
             <th>S.NO <span class="att-sort"><i class="fa-solid fa-caret-up"></i><i class="fa-solid fa-caret-down"></i></span></th>
-            <th>Employee Name <span class="att-sort"><i class="fa-solid fa-caret-up"></i><i class="fa-solid fa-caret-down"></i></span></th>
             <th>Branch <span class="att-sort"><i class="fa-solid fa-caret-up"></i><i class="fa-solid fa-caret-down"></i></span></th>
             <th>Day <span class="att-sort"><i class="fa-solid fa-caret-up"></i><i class="fa-solid fa-caret-down"></i></span></th>
             <th>Date <span class="att-sort"><i class="fa-solid fa-caret-up"></i><i class="fa-solid fa-caret-down"></i></span></th>
@@ -1464,6 +1463,8 @@ function clockAction(type) {
         inBtn.style.opacity = '1';
         inBtn.style.cursor = 'pointer';
     }
+
+    showClockConfirm(type, timeStr);
 }
 
 function validateLeaveRequest() {
@@ -1530,5 +1531,103 @@ function generateReport() {
 }
 
 </script>
+
+<!-- ===== Clock In/Out confirmation modal (added; does not alter any existing markup/behaviour) ===== -->
+<style>
+.attconfirm-overlay{display:none;position:fixed;inset:0;background:rgba(15,23,42,.55);z-index:9999;align-items:center;justify-content:center;padding:20px;font-family:inherit;}
+.attconfirm-box{background:#fff;border-radius:16px;max-width:380px;width:100%;padding:28px 26px 24px;box-shadow:0 10px 40px rgba(0,0,0,.18);text-align:center;}
+.attconfirm-iconwrap{width:84px;height:84px;border-radius:50%;background:#e6f7ec;display:flex;align-items:center;justify-content:center;margin:0 auto 18px;}
+.attconfirm-iconwrap.attconfirm-out{background:#fff4e0;}
+.attconfirm-iconcircle{width:52px;height:52px;border-radius:50%;background:#28a745;color:#fff;display:flex;align-items:center;justify-content:center;font-size:24px;}
+.attconfirm-iconcircle.attconfirm-out{background:#f5a524;}
+.attconfirm-title{font-size:20px;font-weight:800;color:#28a745;margin-bottom:6px;}
+.attconfirm-title.attconfirm-out{color:#df930f;}
+.attconfirm-sub{font-size:13px;color:#6c757d;margin-bottom:20px;line-height:1.5;}
+.attconfirm-rows{text-align:left;margin-bottom:22px;}
+.attconfirm-row{display:flex;align-items:center;justify-content:space-between;padding:10px 2px;border-bottom:1px solid #eef1f5;font-size:13.5px;}
+.attconfirm-row:last-child{border-bottom:none;}
+.attconfirm-label{color:#6c757d;}
+.attconfirm-value{font-weight:700;color:#1f2937;text-align:right;}
+.attconfirm-done{width:100%;padding:13px;border:none;border-radius:10px;background:#1d6ae5;color:#fff;font-weight:700;font-size:14.5px;cursor:pointer;font-family:inherit;}
+.attconfirm-done:hover{background:#1757c4;}
+</style>
+<div class="attconfirm-overlay" id="attConfirmOverlay">
+  <div class="attconfirm-box">
+    <div class="attconfirm-iconwrap" id="attConfirmIconWrap">
+      <div class="attconfirm-iconcircle" id="attConfirmIconCircle"><i class="fa-solid fa-check"></i></div>
+    </div>
+    <div class="attconfirm-title" id="attConfirmTitle">Attendance Marked!</div>
+    <div class="attconfirm-sub" id="attConfirmSub">Employee attendance verified and logged successfully.</div>
+    <div class="attconfirm-rows">
+      <div class="attconfirm-row"><span class="attconfirm-label">Employee</span><span class="attconfirm-value" id="attConfirmEmployee">-</span></div>
+      <div class="attconfirm-row"><span class="attconfirm-label">Date</span><span class="attconfirm-value" id="attConfirmDate">-</span></div>
+      <div class="attconfirm-row"><span class="attconfirm-label">Time</span><span class="attconfirm-value" id="attConfirmTime">-</span></div>
+      <div class="attconfirm-row"><span class="attconfirm-label">Location</span><span class="attconfirm-value" id="attConfirmLocation">Locating…</span></div>
+      <div class="attconfirm-row"><span class="attconfirm-label">Status</span><span class="attconfirm-value" id="attConfirmStatus">-</span></div>
+    </div>
+    <button type="button" class="attconfirm-done" onclick="closeClockConfirm()">Done</button>
+  </div>
+</div>
+<script>
+function showClockConfirm(type, timeStr) {
+    var overlay = document.getElementById('attConfirmOverlay');
+    var iconWrap = document.getElementById('attConfirmIconWrap');
+    var iconCircle = document.getElementById('attConfirmIconCircle');
+    var title = document.getElementById('attConfirmTitle');
+    var sub = document.getElementById('attConfirmSub');
+    var nameEl = document.querySelector('.user-name');
+    var now = new Date();
+
+    document.getElementById('attConfirmEmployee').textContent = nameEl ? nameEl.textContent : '-';
+    document.getElementById('attConfirmDate').textContent = now.toLocaleDateString('en-GB');
+    document.getElementById('attConfirmTime').textContent = timeStr;
+    document.getElementById('attConfirmLocation').textContent = 'Locating…';
+
+    if (type === 'in') {
+        iconWrap.classList.remove('attconfirm-out');
+        iconCircle.classList.remove('attconfirm-out');
+        title.classList.remove('attconfirm-out');
+        title.textContent = 'Attendance Marked!';
+        sub.textContent = 'Clock-in verified and logged successfully.';
+        document.getElementById('attConfirmStatus').textContent = 'Clocked In';
+    } else {
+        iconWrap.classList.add('attconfirm-out');
+        iconCircle.classList.add('attconfirm-out');
+        title.classList.add('attconfirm-out');
+        title.textContent = 'Clock Out Recorded!';
+        sub.textContent = 'Clock-out verified and logged successfully.';
+        document.getElementById('attConfirmStatus').textContent = 'Clocked Out';
+    }
+
+    overlay.style.display = 'flex';
+
+    try {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                function(pos) {
+                    var lat = pos.coords.latitude.toFixed(5);
+                    var lon = pos.coords.longitude.toFixed(5);
+                    var locEl = document.getElementById('attConfirmLocation');
+                    if (locEl) locEl.textContent = lat + ', ' + lon;
+                },
+                function(err) {
+                    var locEl = document.getElementById('attConfirmLocation');
+                    if (locEl) locEl.textContent = 'Not captured (permission denied)';
+                },
+                { timeout: 8000 }
+            );
+        } else {
+            document.getElementById('attConfirmLocation').textContent = 'Not supported on this device';
+        }
+    } catch (e) {
+        document.getElementById('attConfirmLocation').textContent = 'Not captured';
+    }
+}
+
+function closeClockConfirm() {
+    document.getElementById('attConfirmOverlay').style.display = 'none';
+}
+</script>
+
 </body>
 </html>
